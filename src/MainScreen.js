@@ -12,7 +12,7 @@ export default class MainScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Hello</Text>
+        <Text>Hello Test</Text>
       </View>
     );
   }
