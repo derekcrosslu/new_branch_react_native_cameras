@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-
-
 export default class MainScreen extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +10,7 @@ export default class MainScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Hello</Text>
+        <Text>Hello Test</Text>
       </View>
     );
   }
