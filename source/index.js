@@ -182,7 +182,7 @@ export default class RNAgoraExample extends Component {
         if (!isJoinSuccess) {
             return (
                 <View style={{flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text>Calling...</Text>
+                    <Text style={{fontSize: 22, fontWeight: 'bold'}}>Calling...</Text>
                 </View>
             )
         }

@@ -120,7 +120,7 @@ export default class Login extends Component {
 
           <View 
             keyboardShouldPersistTaps='handled'
-            style={{width: '80%', paddingTop: 50}}
+            style={{width: '80%', paddingTop: Platform.OS === 'ios' ? 0 : 50}}
           >
                 {/* <View style={{backgroundColor: 'white', borderRadius: 20}}> */}
                 <TextField
