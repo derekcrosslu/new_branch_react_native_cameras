@@ -1,0 +1,36 @@
+{
+  "name": "RNAgoraExample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "android-release": "cd android && ./gradlew assembleRelease",
+    "android-release-manual-install": "cd android/app/build/outputs/apk && adb install app-release.apk",
+    "android-debug-manual-install": "cd android/app/build/outputs/apk && adb install app-debug.apk",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "axios": "0.18.0",
+    "prop-types": "15.6.0",
+    "react": "16.0.0",
+    "react-native": "0.51.0",
+    "react-native-agora": "1.1.3",
+    "react-native-material-textfield": "0.12.0",
+    "react-native-modal-datetime-picker": "6.0.0",
+    "react-native-slider": "0.11.0",
+    "react-navigation": "2.18.0"
+  },
+  "devDependencies": {
+    "babel-jest": "23.6.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "23.6.0",
+    "react-test-renderer": "16.6.0-alpha.8af6728",
+    "metro-react-native-babel-preset": "0.48.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:datePickerDialogTheme">@style/MyDialogTheme</item>
+        <item name="android:timePickerDialogTheme">@style/MyDialogTheme</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#BA2745</item>
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
+</resources>
