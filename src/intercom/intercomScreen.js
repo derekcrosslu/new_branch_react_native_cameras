@@ -5,7 +5,8 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 
 import LiveView from '../../source/index';
@@ -87,6 +88,7 @@ export default class App extends Component {
             )
         } else {
             return (
+                <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container2}>
 
                     <View style={styles.header}>
@@ -109,6 +111,7 @@ export default class App extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                </SafeAreaView>
             );
         }
     }
