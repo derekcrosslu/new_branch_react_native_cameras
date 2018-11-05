@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class OpacityBackGround extends Component {
   constructor(props) {

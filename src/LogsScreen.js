@@ -155,26 +155,22 @@ export default class LogsScreen extends Component {
         <View style={{flexDirection: 'row', height: '10%', borderTopWidth: .8, borderColor: 'grey'}}>
           <TouchableOpacity style={{width: '25%',  alignItems: 'center', justifyContent: 'center', backgroundColor: '#ededed', borderColor: 'black', borderRightWidth: .3}} onPress={() => this.props.navigation.navigate("Home")}>
             <Image source={require('../img/speaking(1).png')} resizeMode="contain" style={{width: "34%"}}/>
-            {/* <Image source={require('../img/ic_action_tab_intercom.png')} resizeMode="contain" style={{width: "34%"}}/> */}
             <Text style={{fontSize: 14, color: "black"}}>Intercom</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={{width: '25%',  alignItems: 'center', justifyContent: 'center', backgroundColor: '#dbdbdb', borderColor: 'black', borderRightWidth: .3}} onPress={() => this.props.navigation.navigate("Logs")}>
             <Image source={require('../img/list-with-dots.png')} resizeMode="contain" style={{width: "25%"}}/>
-            {/* <Image source={require('../img/ic_action_tab_logs3.png')} resizeMode="contain" style={{width: "25%"}}/> */}
             <Text style={{fontSize: 16, color: "#BA2745"}}>Logs</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={{width: '25%',  alignItems: 'center', justifyContent: 'center', backgroundColor: '#ededed', borderColor: 'black', borderRightWidth: .3}} onPress={() => this.props.navigation.navigate("Service")}>
             <Image source={require('../img/building(1).png')} resizeMode="contain" style={{width: "25%"}}/> 
-            {/* <Image source={require('../img/ic_action_tab_services.png')} resizeMode="contain" style={{width: "25%"}}/> */}
             <Text style={{fontSize: 14, color: "black"}}>Services</Text>
           </TouchableOpacity>
 
 
           <TouchableOpacity style={{width: '25%',  alignItems: 'center', justifyContent: 'center', backgroundColor: '#ededed'}} onPress={() => this.props.navigation.navigate("More")}>
             <Image source={require('../img/more(1).png')} resizeMode="contain" style={{width: "29%"}}/>
-            {/* <Image source={require('../img/ic_action_tab_more.png')} resizeMode="contain" style={{width: "25%"}}/> */}
             <Text style={{fontSize: 14, color: "black"}}>More</Text>
           </TouchableOpacity>
         </View>

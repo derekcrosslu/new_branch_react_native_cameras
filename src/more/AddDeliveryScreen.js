@@ -4,7 +4,6 @@ import { TextField } from 'react-native-material-textfield';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CustomFilterDays from './CustomFilterDays';
 import OpacityBackGround from '../OpacityBackGround';
-import ToastExample from './../../ToastExample';
 
 export default class AddDeliveryScreen extends Component {
   constructor(props) {
@@ -120,8 +119,8 @@ export default class AddDeliveryScreen extends Component {
       console.log(Object.keys(errors).length, 'errors ocurred try again.');
     } else {
       console.log(submitToServer, 'sends to server!');
-      // Alert.alert('Company added!');
-      ToastExample.show('Added Company!', ToastExample.LONG);
+      Alert.alert('Company added!');
+      // ToastExample.show('Added Company!', ToastExample.LONG);
       this.props.navigation.goBack();
     }
   }

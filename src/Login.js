@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
+import { StyleSheet, Platform, Text, View, TouchableOpacity, Image } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 
 export default class Login extends Component {

@@ -18,9 +18,7 @@ import SettingsScreen from './more/SettingsScreen';
 import CallSuperintendentScreen from './services/CallSuperintendentScreen';
 import intercomScreen from './intercom/intercomScreen';
 import EditScreen from './more/EditScreen';
-import testScreen from './intercom/testScreen';
 import MyAccountScreen from './more/MyAccountScreen';
-import testScreen2 from './intercom/testScreen2';
 import EditDeliveryScreen from './more/EditDeliveryScreen';
 
 const RouteConfigs =     {
@@ -80,12 +78,6 @@ const RouteConfigs =     {
     },
     EditDelivery: {
         screen: EditDeliveryScreen
-    },
-    test: {
-        screen: testScreen
-    },
-    test2: {
-        screen: testScreen2
     },
     account: {
         screen: MyAccountScreen

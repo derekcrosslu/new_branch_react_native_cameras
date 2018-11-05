@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
-import ToastExample from './../ToastExample';
 
 export default class MoreScreen extends Component {
   constructor(props) {

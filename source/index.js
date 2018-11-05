@@ -40,11 +40,9 @@ export default class RNAgoraExample extends Component {
             swapWidthAndHeight: true
         };
         RtcEngine.init(options);
-
     }
 
     componentDidMount() {
-
         // 当前版本号
         RtcEngine.getSdkVersion((version) => {
             // console.log(version)

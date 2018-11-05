@@ -67,14 +67,7 @@ export default class MainScreen extends Component {
         {/* <View elevation={5} style={styles.buttonContainer}>
           <Text style={styles.textStyle}>Shadow Applied</Text>
         </View>
-
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("test")}>
-          <Text>Test Screen</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("test2")}>
-          <Text>Test Screen</Text>
-        </TouchableOpacity> */}
+        */}
 
         </View>
         

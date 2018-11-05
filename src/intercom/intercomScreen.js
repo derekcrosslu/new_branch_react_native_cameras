@@ -96,7 +96,7 @@ export default class App extends Component {
                             <Image source={require('../../img/back.png')} style={{width: 25, height: 25}}/>
                         </TouchableOpacity>
                         <View style={styles.paddingL}>
-                        <Text style={styles.headerText}>Intercom</Text>
+                            <Text style={styles.headerText}>Intercom</Text>
                         </View>
                     </View>
                     {!!err &&

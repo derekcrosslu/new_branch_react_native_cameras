@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Navigation from './src/Navigation.js';
 import Login from './src/Login.js';
 

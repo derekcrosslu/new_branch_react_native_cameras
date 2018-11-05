@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, TouchableHighlight, Image, ScrollView, Linking } from 'react-native';
+import { StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, Linking } from 'react-native';
 
 export default class ServicesScreen extends Component {
   constructor(props) {
