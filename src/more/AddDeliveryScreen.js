@@ -196,7 +196,7 @@ export default class AddDeliveryScreen extends Component {
         time = (Number(date.toLocaleTimeString().slice(0, 2)) -12) + ":" + 0 + Number(date.toLocaleTimeString().slice(3, 5)) + 'PM';
       }
     }
-
+      // console.log("hello IOS?");
     this._hideDateTimePickerD3(time);
   };
 

@@ -8,7 +8,6 @@ export default class MainScreen extends Component {
     this.state = {
 
     }
-
     this.getNvr = this.getNvr.bind(this);
   }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 
 export default class SettingsScreen extends Component {
   constructor(props) {
@@ -7,6 +7,12 @@ export default class SettingsScreen extends Component {
     this.state = {
       vibrate: true
     }
+    this.saveSettings = this.saveSettings.bind(this);
+  }
+
+  saveSettings() {
+    this.props.navigation.goBack();
+    Alert.alert("Settings Saved!");
   }
 
   render() {
@@ -53,7 +59,7 @@ export default class SettingsScreen extends Component {
             </TouchableOpacity>
 
               <View style={{width: '100%', alignItems: 'center'}}>
-                <TouchableOpacity onPress={this.submitNewPerson} style={{width: 150, height: 60, backgroundColor: '#BA2745',alignItems: 'center', justifyContent: 'center', borderRadius: 10}}>
+                <TouchableOpacity onPress={this.submitNewPerson} style={{width: 150, height: 60, backgroundColor: '#BA2745',alignItems: 'center', justifyContent: 'center', borderRadius: 10}} onPress={this.saveSettings}>
                   <Text style={{fontSize: 26, color: 'white'}}>Save</Text>
                 </TouchableOpacity>
               </View>

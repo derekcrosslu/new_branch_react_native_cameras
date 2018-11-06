@@ -26,7 +26,7 @@ export default class MyAccountScreen extends Component {
 
             <View style={styles.flex}>
               <View style={{flex: 1}}></View>
-              <TouchableOpacity style={{paddingRight: 20, justifyContent: 'center'}} onPress={() => this.props.navigation.navigate("Edit")}>
+              <TouchableOpacity style={{paddingRight: 20, justifyContent: 'center'}} onPress={() => this.props.navigation.goBack()}>
                 <Text style={styles.headerText}>Edit</Text>
               </TouchableOpacity>
             </View>

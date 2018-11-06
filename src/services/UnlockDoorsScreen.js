@@ -47,7 +47,7 @@ export default class KeyCardScreen extends Component {
 
           <View style={styles.body}>
 
-          <View style={{marginTop: 50, marginLeft: 20, maringBottom: 100}}>
+          <View style={{marginTop: 50, marginLeft: 20, marginBottom: 100}}>
             <View style={{paddingBottom: 25, paddingLeft: 20}}>
               <Text style={{fontSize: 18, color: 'black'}}>{this.state.change}</Text>
             </View>
@@ -64,7 +64,7 @@ export default class KeyCardScreen extends Component {
             />
           </View>
 
-          <View style={{marginTop: 50, marginLeft: 20, maringBottom: 100}}>
+          <View style={{marginTop: 50, marginLeft: 20, marginBottom: 100}}>
             <View style={{paddingBottom: 25, paddingLeft: 20}}>
               <Text style={{fontSize: 18, color: 'black'}}>{this.state.change2}</Text>
             </View>

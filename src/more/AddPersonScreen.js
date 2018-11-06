@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, TextInput, Alert} from 'react-native';
+import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, Alert} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CustomFilterDays from './CustomFilterDays';
