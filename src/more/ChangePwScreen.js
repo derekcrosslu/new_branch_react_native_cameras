@@ -93,13 +93,20 @@ export default class ChangePwScreen extends Component {
           }
         }
       });
+      if (submitToServer['PassWord'] !== submitToServer['ConfirmPassWord']) {
+        errors['PassWord'] = "Passwords don't match";
+        errors['ConfirmPassWord'] = "Passwords don't match";
+      }
+      // if (submitToServer['OldPw'] !== 'cowgoesmoo') {
+      //   errors["OldPw"] = "Password is incorrect";
+      // }
+      // This will be where you check if the password that the user inputs is correct before anything else
 
     this.setState({ errors });
     if (Object.keys(errors).length > 0) {
       console.log(Object.keys(errors).length, 'errors ocurred try again.');
     } else {
       console.log(submitToServer, 'sends to server!');
-      // alert("Person added!");
       Alert.alert('Password Changed!');
       this.props.navigation.goBack();
     }
@@ -115,7 +122,6 @@ export default class ChangePwScreen extends Component {
     let name = secureTextEntry?
       'visibility':
       'visibility-off';
-
   }
 
 

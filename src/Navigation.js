@@ -20,6 +20,7 @@ import intercomScreen from './intercom/intercomScreen';
 import EditScreen from './more/EditScreen';
 import MyAccountScreen from './more/MyAccountScreen';
 import EditDeliveryScreen from './more/EditDeliveryScreen';
+import EditAccountScreen from './more/EditAccountScreen';
 
 const RouteConfigs =     {
     Home : {
@@ -81,6 +82,9 @@ const RouteConfigs =     {
     },
     account: {
         screen: MyAccountScreen
+    },
+    EditAccount: {
+        screen: EditAccountScreen
     }
 };
 

@@ -26,7 +26,7 @@ export default class MyAccountScreen extends Component {
 
             <View style={styles.flex}>
               <View style={{flex: 1}}></View>
-              <TouchableOpacity style={{paddingRight: 20, justifyContent: 'center'}} onPress={() => this.props.navigation.goBack()}>
+              <TouchableOpacity style={{paddingRight: 20, justifyContent: 'center'}} onPress={() => this.props.navigation.navigate("EditAccount")}>
                 <Text style={styles.headerText}>Edit</Text>
               </TouchableOpacity>
             </View>
@@ -37,9 +37,9 @@ export default class MyAccountScreen extends Component {
               <Image source={require('../../img/user1.png')} style={{width: 150, height: 150}}/>
             </View>
 
-            <TouchableOpacity style={{width: '100%', marginTop: 20, marginBottom: 10, flexDirection: 'row', height: 50,  alignItems: 'center', paddingLeft: 20}}>
+            <View style={{width: '100%', marginTop: 20, marginBottom: 10, flexDirection: 'row', height: 50,  alignItems: 'center', paddingLeft: 20}}>
               <Text style={{fontSize: 24, fontWeight: '600'}}>Personal Information</Text>
-            </TouchableOpacity>
+            </View>
 
             <View style={{width: '100%', marginTop: 0, flexDirection: 'row', height: 50,  alignItems: 'center', paddingLeft: 20}}>
 
