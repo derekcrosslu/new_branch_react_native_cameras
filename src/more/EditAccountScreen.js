@@ -82,19 +82,15 @@ export default class EditAccountScreen extends Component {
   onAccessoryPress() {
     this.setState(({ secureTextEntry }) => ({ secureTextEntry: !secureTextEntry }));
   }
-
   onSubmitBuildingName() {
     this.ApartmentName.focus();
   }
-
   onSubmitApartmentName() {
     this.FullName.focus();
   }
-
   onSubmitFullName() {
     this.PhoneNum.focus();
   }
-
   onSubmitPhoneNum() {
     this.WorkPhone.focus();
   }

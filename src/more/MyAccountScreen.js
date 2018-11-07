@@ -42,7 +42,6 @@ export default class MyAccountScreen extends Component {
             </View>
 
             <View style={{width: '100%', marginTop: 0, flexDirection: 'row', height: 50,  alignItems: 'center', paddingLeft: 20}}>
-
               <View>
                 <Text style={{fontSize: 18, fontWeight: '600'}}>Building Name</Text>
                 <Text>Building 99 - Virtual Doorman Office 104 West 40th Street</Text>

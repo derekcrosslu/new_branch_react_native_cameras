@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView, Platform, Text, View, TouchableOpacity, Image, StatusBar} from 'react-native';
+import {StyleSheet, SafeAreaView, Platform, Text, View, TouchableOpacity, Image, StatusBar, AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 export default class MainScreen extends Component {
@@ -13,6 +13,37 @@ export default class MainScreen extends Component {
 
   componentWillMount() {
     // this.getNvr();
+    // console.log("This thing rang");
+    let loginData = {username: 'jmulder', password: '123456', macwifi: '12:12:12:12'};
+    _storeData = async () => {
+      try {
+        // console.log("hello will");
+        await AsyncStorage.setItem('loginData', JSON.stringify(loginData));
+      } catch (error) {
+        // Error saving data
+        console.log('There was an error!');
+      }
+    }
+    // _storeData();
+  }
+  componentDidMount() {
+    _retrieveData = async () => {
+      try {
+        // console.log("hello did");
+        const value = await AsyncStorage.getItem('loginData');
+        if (value !== null) {
+          // We have data!!
+          console.log(JSON.parse(value), 'THIS IS THE VALUE!');
+        } else {
+          console.log('The key you searched for doesnt exist');
+        }
+       } catch (error) {
+         // Error retrieving data
+         console.log("there was an error trying to find things in storage or something");
+       }
+    }
+    // console.log("component did mount");
+    // _retrieveData();
   }
 
   getNvr() {

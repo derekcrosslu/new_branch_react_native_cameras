@@ -25,9 +25,8 @@ export default class Login extends Component {
     }
   }
 
-  onFocus() {
-    // console.log('onFocus Ran!');
 
+  onFocus() {
     let { errors = {} } = this.state;
 
     for (let name in errors) {
@@ -42,7 +41,6 @@ export default class Login extends Component {
   }
 
   onChangeText(text) {
-    // console.log('onChangeText Ran!');
     ['username', 'password']
       .map((name) => ({ name, ref: this[name] }))
       .forEach(({ name, ref }) => {
@@ -108,6 +106,12 @@ export default class Login extends Component {
 
     let { errors = {}, secureTextEntry, ...data } = this.state;
     let { username = 'name', password = 'house'} = data;
+    let rememberMe;
+    if (this.props.rememberMe) {
+      rememberMe = <Image source={require('../img/switch.png')} style={{width: 50, height: 40}}/>;
+    } else {
+      rememberMe = <Image source={require('../img/switch2.png')} style={{width: 50, height: 40}}/>;  
+    }
 
     return (
       <View style={styles.container}>
@@ -122,7 +126,6 @@ export default class Login extends Component {
             keyboardShouldPersistTaps='handled'
             style={{width: '80%', paddingTop: Platform.OS === 'ios' ? 0 : 50}}
           >
-                {/* <View style={{backgroundColor: 'white', borderRadius: 20}}> */}
                 <TextField
                   ref={this.usernameRef}
                   value={data.username}
@@ -145,8 +148,7 @@ export default class Login extends Component {
                   errorColor="black"
                   labelTextStyle={{fontWeight: 'bold'}}
                 />
-                {/* </View> */}
-                {/* <View style={{backgroundColor: 'white', borderRadius: 20}}> */}
+
                 <TextField
                   ref={this.passwordRef}
                   value={data.password}
@@ -174,7 +176,18 @@ export default class Login extends Component {
                   errorColor="black"
                   labelTextStyle={{fontWeight: 'bold'}}
                 />
-                {/* </View> */}
+                <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
+                  <TouchableOpacity style={{padding: 5, margin: 5}} onPress={this.props.rememberMeChange}>
+                    {rememberMe}
+                  </TouchableOpacity>
+
+                  <View style={{paddingLeft:5, justifyContent: 'center'}}>
+                    <Text style={{fontSize: 18, color: 'white'}}>Remember me</Text>
+                  </View>
+
+                  <View style={{flex: 1}}></View>
+                </View>
+
               <View style={{width: '100%', alignItems: 'center'}}>
                 <TouchableOpacity style={{width: '70%', height: 60, borderRadius: 20, backgroundColor: 'white', margin: 20, justifyContent: 'center', alignItems: 'center' }} onPress={this.onSubmit} title='submit' color={TextField.defaultProps.tintColor} titleColor='white'>
                   <Text style={{color: 'black', fontWeight: 'bold', fontSize: 26}}>Login</Text>
@@ -210,19 +223,3 @@ const styles = StyleSheet.create({
     }
   });
   
-
-  
-// let styles = {
-//     scroll: {
-//       backgroundColor: '#E8EAF6',
-//     },
-  
-//     container: {
-//       margin: 8,
-//       marginTop: 24,
-//     },
-  
-//     contentContainer: {
-//       padding: 8,
-//     },
-//   };
