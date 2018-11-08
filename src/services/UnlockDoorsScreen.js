@@ -13,6 +13,7 @@ export default class KeyCardScreen extends Component {
     }
     this.unlockedDoor = this.unlockedDoor.bind(this);
     this.unlockedDoor2 = this.unlockedDoor2.bind(this);
+    this.closedDoor = this.closedDoor.bind(this);
   }
 
   unlockedDoor() {
@@ -20,6 +21,9 @@ export default class KeyCardScreen extends Component {
       this.setState({
         change: 'Door is open'
       });
+      // make it so that one function can handle all of the doors open 
+      // and another function can handle all closing doors.
+      this.interval = setInterval(() => this.closedDoor(), 5000);
     }
   }
 
@@ -29,6 +33,16 @@ export default class KeyCardScreen extends Component {
         change2: 'Door is open'
       });
     }
+  }
+
+  closedDoor() {
+    this.setState({
+      change: 'Front Door'
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {

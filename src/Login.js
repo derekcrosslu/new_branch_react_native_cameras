@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { StyleSheet, Platform, Text, View, TouchableOpacity, Image } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
+import DeviceInfo from 'react-native-device-info';
+import axios from 'axios';
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,7 +24,19 @@ export default class Login extends Component {
         username: '',
         password: '',
         secureTextEntry: true,
+        wifiMac: 'Not yet taken'
     }
+  }
+
+  componentWillMount() {
+    DeviceInfo.getMACAddress().then(mac => {
+      this.setState({
+        wifiMac: mac
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
 
@@ -66,27 +80,49 @@ export default class Login extends Component {
       onSubmit() {
         let errors = {};
         let submitToServer = {};
-  
-        ['username', 'password']
-          .forEach((name) => {
-            let value = this[name].value();
-            submitToServer[name] = value;
-            if (!value) {
-              errors[name] = 'Should not be empty';
-            } else {
-              if ('password' === name && value.length < 6) {
-                errors[name] = 'Too short';
-              }
-            }
-          });
+        let username = this["username"].value();
+        let password = this["password"].value();
+        // let wifiMac = this.state.wifiMac;
+        let wifiMac = 'abc123';
+        // console.log(username, password, wifiMac, "THis is the username and password");
 
+        if (username.length === 0) {
+          errors["username"] = "Can't leave empty";
           this.setState({ errors });
-          if (Object.keys(errors).length > 0) {
-            console.log(Object.keys(errors).length, 'errors ocurred try again.');
-          } else {
-            console.log(submitToServer, 'sends to server!');
-            this.props.login();
-          }
+        } else if (password.length === 0) {
+          errors["password"] = "Can't leave empty";
+          this.setState({ errors });   
+        } else if (username.length === 0 && password.length === 0) {
+          errors["username"] = "Can't leave empty";
+          errors["password"] = "Can't leave empty";
+          this.setState({ errors });   
+        } else {
+          axios.post(`http://68.183.98.212:3000/usr/db/${username}/${password}/${wifiMac}`)
+            .then((res) => {
+              // console.log(res.data, "server response");
+              if (res.data === 'invalid username ' ) {
+                errors["username"] = "Username is invalid";
+                console.log('errors', errors);
+              } else if (res.data === 'invalid password') {
+                errors["password"] = "Password is invalid";
+              } else if (res.data === 'wifimacaddress not registered') {
+                errors["wifiMac"] = 'Wifimacaddress not registered';
+              }
+
+              this.setState({ errors });
+              if (Object.keys(errors).length > 0) {
+                console.log(Object.keys(errors).length, 'errors ocurred try again.');
+              } else {
+                console.log(submitToServer, 'sends to server!');
+                this.props.login();
+              }
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+
         }
     
         updateRef(name, ref) {
@@ -124,8 +160,11 @@ export default class Login extends Component {
 
           <View 
             keyboardShouldPersistTaps='handled'
-            style={{width: '80%', paddingTop: Platform.OS === 'ios' ? 0 : 50}}
+            style={{width: '80%', paddingTop: Platform.OS === 'ios' ? 0 : 40}}
           >
+          <View style={{width: '100%', justifyContent:'center', alignItems: 'center'}}>
+            <Text style={{fontSize: 18, fontWeight: 'bold'}}>{errors.wifiMac}</Text>
+          </View>
                 <TextField
                   ref={this.usernameRef}
                   value={data.username}
