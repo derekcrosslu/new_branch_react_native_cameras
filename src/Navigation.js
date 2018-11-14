@@ -21,6 +21,41 @@ import EditScreen from './more/EditScreen';
 import MyAccountScreen from './more/MyAccountScreen';
 import EditDeliveryScreen from './more/EditDeliveryScreen';
 import EditAccountScreen from './more/EditAccountScreen';
+import KeyCard2Screen from './services/KeyCard2Screen';
+import KeyCard3Screen from './services/KeyCard3Screen';
+import KeyCard4Screen from './services/KeyCard4Screen';
+
+const RouteConfigs2 = {
+    Home : {
+        screen: KeyCardScreen
+    },
+    Step2 : {
+        screen: KeyCard2Screen
+    },
+    Step3 : {
+        screen: KeyCard3Screen
+    },
+    Step4: {
+        screen: KeyCard4Screen
+    }
+}
+const StackNavigatorConfig2 =     {
+    initialRouteName: 'Home',
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false
+    },
+    transitionConfig : () => ({
+        transitionSpec: {
+            duration: 0,
+            timing: Animated.timing,
+        }
+    })
+};
+const NavigatorFob =  createStackNavigator(RouteConfigs2, StackNavigatorConfig2);
+
+
+
 
 const RouteConfigs =     {
     Home : {
@@ -66,7 +101,7 @@ const RouteConfigs =     {
         screen: SettingsScreen
     },
     KeyCard: {
-        screen: KeyCardScreen
+        screen: NavigatorFob
     },
     CallSuper: {
         screen: CallSuperintendentScreen
@@ -87,6 +122,7 @@ const RouteConfigs =     {
         screen: EditAccountScreen
     }
 };
+
 
 const StackNavigatorConfig =     {
         initialRouteName: 'Home',

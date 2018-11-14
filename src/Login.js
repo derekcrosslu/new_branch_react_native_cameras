@@ -79,30 +79,28 @@ export default class Login extends Component {
 
       onSubmit() {
         let errors = {};
-        let submitToServer = {};
         let username = this["username"].value();
         let password = this["password"].value();
         // let wifiMac = this.state.wifiMac;
         let wifiMac = 'abc123';
         // console.log(username, password, wifiMac, "THis is the username and password");
 
-        if (username.length === 0) {
+        if (username.length === 0 && password.length === 0) {
           errors["username"] = "Can't leave empty";
+          errors["password"] = "Can't leave empty";
           this.setState({ errors });
         } else if (password.length === 0) {
           errors["password"] = "Can't leave empty";
           this.setState({ errors });   
-        } else if (username.length === 0 && password.length === 0) {
+        } else if (username.length === 0) {
           errors["username"] = "Can't leave empty";
-          errors["password"] = "Can't leave empty";
           this.setState({ errors });   
         } else {
-          axios.post(`http://68.183.98.212:3000/usr/db/${username}/${password}/${wifiMac}`)
+          axios.post(`http://68.183.98.212:3000/api/${username}/${password}/${wifiMac}`)
             .then((res) => {
               // console.log(res.data, "server response");
               if (res.data === 'invalid username ' ) {
                 errors["username"] = "Username is invalid";
-                console.log('errors', errors);
               } else if (res.data === 'invalid password') {
                 errors["password"] = "Password is invalid";
               } else if (res.data === 'wifimacaddress not registered') {
@@ -113,7 +111,6 @@ export default class Login extends Component {
               if (Object.keys(errors).length > 0) {
                 console.log(Object.keys(errors).length, 'errors ocurred try again.');
               } else {
-                console.log(submitToServer, 'sends to server!');
                 this.props.login();
               }
 
@@ -179,8 +176,8 @@ export default class Login extends Component {
                   fontSize={22}
                   titleFontSize={14}
                   labelFontSize={22}
-                  maxLength={20}
-                  characterRestriction={20}
+                  maxLength={40}
+                  characterRestriction={40}
                   textColor="white"
                   tintColor="white"
                   baseColor="white"
