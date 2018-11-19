@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, Linking } from 'react-native';
-
+import { NativeModules,StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, Linking } from 'react-native';
 export default class ServicesScreen extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +55,9 @@ export default class ServicesScreen extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.feature} onPress={() => this.props.navigation.navigate("BuildingCameras")}>
+          <TouchableOpacity style={styles.feature} onPress={() => {
+            NativeModules.RNCameraModule.showCamera();
+          }}>
             <Image source={require('../img/oldcamera.jpg')} style={styles.featureImage}/>
             <View style={styles.featureTextC}>
               <Text style={styles.featureText}>Building Cameras</Text>

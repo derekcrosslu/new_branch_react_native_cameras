@@ -21,8 +21,8 @@ export default class Login extends Component {
     this.renderPasswordAccessory = this.renderPasswordAccessory.bind(this);
 
     this.state = {
-        username: '',
-        password: '',
+        username: 'dcross@virtualservice.net',
+        password: 'dc9822',
         secureTextEntry: true,
         wifiMac: 'Not yet taken'
     }
