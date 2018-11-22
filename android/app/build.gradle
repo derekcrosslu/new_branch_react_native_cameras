@@ -1,3 +1,85 @@
+//apply plugin: "com.android.application"
+//import com.android.build.OutputFile
+//
+//project.ext.react = [
+//        entryFile: "index.js"
+//]
+//
+//apply from: "../../node_modules/react-native/react.gradle"
+//
+//def enableSeparateBuildPerCPUArchitecture = false
+//def enableProguardInReleaseBuilds = true
+//
+//android {
+//    compileSdkVersion 28
+//    buildToolsVersion '28.0.3'
+//
+//    defaultConfig {
+//        applicationId "com.residentapprn"
+//        minSdkVersion 17
+//        targetSdkVersion 28
+//        versionCode 2
+//        versionName "1.0"
+//        ndk {
+//            abiFilters "armeabi-v7a", "x86"
+//        }
+//    }
+//    splits {
+//        abi {
+//            reset()
+//            enable enableSeparateBuildPerCPUArchitecture
+//            universalApk false  // If true, also generate a universal APK
+//            include "armeabi-v7a", "x86"
+//        }
+//    }
+//    signingConfigs {
+//        release {
+//            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+//                storeFile file(MYAPP_RELEASE_STORE_FILE)
+//                storePassword MYAPP_RELEASE_STORE_PASSWORD
+//                keyAlias MYAPP_RELEASE_KEY_ALIAS
+//                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+//            }
+//        }
+//    }
+//    buildTypes {
+//        release {
+//            minifyEnabled enableProguardInReleaseBuilds
+//            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+//            signingConfig signingConfigs.release
+//        }
+//    }
+//    // applicationVariants are e.g. debug, release
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
+//            def abi = output.getFilter(OutputFile.ABI)
+//            if (abi != null) {  // null for the universal-debug, universal-release variants
+//                output.versionCodeOverride =
+//                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+//            }
+//        }
+//    }
+//}
+//
+//dependencies {
+//    compile project(':react-native-device-info')
+//    compile project(':react-native-agora')
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation 'com.facebook.react:react-native:+'
+//    implementation files('src/main/jniLibs/AudioEngineSDK.jar')
+//    implementation files('src/main/jniLibs/HCNetSDK.jar')
+//    implementation files('src/main/jniLibs/PlayerSDK.jar')
+//    implementation 'com.android.volley:volley:1.1.0'
+//    // From node_modules
+//    implementation 'com.android.support:appcompat-v7:26.1.0'
+//}
+//
+//task copyDownloadableDepsToLibs(type: Copy) {
+//    from configurations.compile
+//    into 'libs'
+//}
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -7,30 +89,21 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
-
 def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
-
     defaultConfig {
         applicationId "com.residentapprn"
-        minSdkVersion 17
-        targetSdkVersion 26
-        versionCode 2
-        versionName "1.0"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 18
+        versionName '0.9.5'
+        vectorDrawables.useSupportLibrary = true
         ndk {
             abiFilters "armeabi-v7a", "x86"
-        }
-    }
-    splits {
-        abi {
-            reset()
-            enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
         }
     }
     signingConfigs {
@@ -43,6 +116,14 @@ android {
             }
         }
     }
+    splits {
+        abi {
+            reset()
+            enable enableSeparateBuildPerCPUArchitecture
+            universalApk false  // If true, also generate a universal APK
+            include "armeabi-v7a", "x86"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
@@ -50,7 +131,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def versionCodes = ["armeabi-v7a": 1, "x86": 2]
@@ -61,23 +141,22 @@ android {
             }
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile project(':react-native-device-info')
-    compile project(':react-native-agora')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.facebook.react:react-native:+'
-    implementation files('src/main/jniLibs/AudioEngineSDK.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.volley:volley:1.1.0'
     implementation files('src/main/jniLibs/HCNetSDK.jar')
     implementation files('src/main/jniLibs/PlayerSDK.jar')
-    implementation 'com.android.volley:volley:1.1.0'
+    compile project(':react-native-device-info')
+    compile project(':react-native-agora')
+    implementation 'com.facebook.react:react-native:+'
     // From node_modules
-    implementation 'com.android.support:appcompat-v7:26.1.0'
 }
 
-// Run this once to be able to run the application with BUCK
-// puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'

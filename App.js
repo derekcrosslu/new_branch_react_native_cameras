@@ -3,7 +3,7 @@ import { StyleSheet, View, AsyncStorage } from 'react-native';
 import Navigation from './src/Navigation.js';
 import Login from './src/Login.js';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,7 +127,7 @@ export default class App extends Component {
     );
   }
 }
-
+export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1

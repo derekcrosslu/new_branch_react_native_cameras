@@ -2,162 +2,163 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A40234"
-    >
+    android:background="#A40234">
 
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="#A40234" >
+        android:background="#A40234">
 
         <RelativeLayout
+            android:id="@+id/backbutton"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:id="@+id/backbutton"
             android:layout_alignParentLeft="true">
+
             <ImageView
 
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:adjustViewBounds="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:adjustViewBounds="true"
 
-                />
+                android:src="@drawable/a" />
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="30dp"
-            android:textSize="17sp"
-            android:layout_centerHorizontal="true"
-
             android:text="My Building Cameras"
-            android:textColor="#FFFFFF"/>
+
+            android:textColor="#FFFFFF"
+            android:textSize="17sp" />
 
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/Play"
-        android:layout_below="@id/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="1"
+        android:layout_below="@id/header"
         android:layout_centerVertical="true"
-       >
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <RelativeLayout
             android:id="@+id/widget_Play"
 
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/framelayout_border">
+            android:background="@drawable/framelayout_border"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
 
             <SurfaceView
                 android:id="@+id/Sur_Player"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                />
-
-
+                android:layout_height="fill_parent" />
         </RelativeLayout>
-
     </RelativeLayout>
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Play"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/Play">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true">
+
         <LinearLayout
             android:id="@+id/linearLayoutTwo"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:padding="5dp"
-            android:gravity="center">
+            android:visibility="visible">
 
             <Button
                 android:id="@+id/viewmore"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:onClick="viewcameras"
-                android:text="View More"
-                android:textStyle="normal"
                 android:paddingLeft="15dp"
+                android:paddingTop="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="5dp" />
+                android:text="View More"
+                android:textStyle="normal" />
+
             <Button
                 android:id="@+id/back"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:onClick="back"
+                android:paddingLeft="15dp"
+                android:paddingRight="5dp"
                 android:text="View More"
                 android:textStyle="normal"
-                android:visibility="gone"
-                android:paddingLeft="15dp"
-                android:paddingRight="5dp" />
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/screenshot"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:onClick="screenshot"
                 android:layout_marginLeft="20dp"
+                android:onClick="screenshot"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
                 android:text="Snapshot"
                 android:textStyle="normal"
-                android:visibility="visible"
-                android:paddingLeft="15dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp" />
+                android:visibility="visible" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:id="@+id/linearLayout"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:padding="5dp"
-            android:gravity="center">
+            android:visibility="gone">
+
             <Button
                 android:id="@+id/previous"
                 android:layout_width="142dp"
                 android:layout_height="wrap_content"
                 android:onClick="previous"
-                android:text="Previous"
-                android:textStyle="normal"
                 android:paddingLeft="15dp"
                 android:paddingRight="5dp"
-                />
+                android:text="Previous"
+                android:textStyle="normal" />
+
             <Button
                 android:id="@+id/next"
                 android:layout_width="142dp"
                 android:layout_height="wrap_content"
-                android:onClick="next"
-                android:text="Next"
                 android:layout_marginLeft="13dp"
-                android:textStyle="normal"
+                android:onClick="next"
                 android:paddingLeft="5dp"
                 android:paddingRight="15dp"
-                />
+                android:text="Next"
+                android:textStyle="normal" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -169,5 +170,4 @@
         android:layout_below="@+id/header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="149dp" />
-
 </RelativeLayout>
