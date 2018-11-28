@@ -1,0 +1,17 @@
+{
+  "buildFiles": [
+    "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk",
+    "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk"
+  ],
+  "cleanCommands": [
+    "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/lib clean"
+  ],
+  "libraries": {
+    "hdaec-release-x86": {
+      "artifactName": "hdaec",
+      "buildCommand": "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/lib /Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj/local/x86/libhdaec.so",
+      "abi": "x86",
+      "output": "/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj/local/x86/libhdaec.so"
+    }
+  }
+}

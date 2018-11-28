@@ -1,0 +1,138 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .metadata/
+* .metadata/.lock
+* .metadata/.log
+* .metadata/.mylyn/
+* .metadata/.mylyn/repositories.xml.zip
+* .metadata/version.ini
+* AndroidManifest.xml
+* jni/
+* jni/Android.mk
+* jni/Application.mk
+* jni/adt_hdaec_jni.c
+* jni/aecg4/
+* jni/aecg4/include/
+* jni/aecg4/include/aecg4.h
+* jni/aecg4/include/iaecg4.h
+* jni/common/
+* jni/common/doc/
+* jni/common/doc/ADTAlgorithmDeliverables.doc
+* jni/common/doc/ADTAlgorithmDeliverablesQuickStart.doc
+* jni/common/include/
+* jni/common/include/adt_typedef_user.h
+* jni/common/include/adt_vfile.h
+* jni/common/include/mips.h
+* jni/common/utilities/
+* jni/common/utilities/adt_vfile.c
+* jni/common/xdais_test/
+* jni/common/xdais_test/alg_control.c
+* jni/common/xdais_test/alg_create.c
+* jni/common/xdais_test/alg_malloc.c
+* jni/common/xdm_packages/
+* jni/common/xdm_packages/ti/
+* jni/common/xdm_packages/ti/xdais/
+* jni/common/xdm_packages/ti/xdais/_alg.h
+* jni/common/xdm_packages/ti/xdais/alg.h
+* jni/common/xdm_packages/ti/xdais/dm/
+* jni/common/xdm_packages/ti/xdais/dm/ispeech1.h
+* jni/common/xdm_packages/ti/xdais/dm/ispeech1_ilbc.h
+* jni/common/xdm_packages/ti/xdais/dm/ispeech1_pcm.h
+* jni/common/xdm_packages/ti/xdais/dm/isphdec1.h
+* jni/common/xdm_packages/ti/xdais/dm/isphenc1.h
+* jni/common/xdm_packages/ti/xdais/dm/xdm.h
+* jni/common/xdm_packages/ti/xdais/ialg.h
+* jni/common/xdm_packages/ti/xdais/std.h
+* jni/common/xdm_packages/ti/xdais/xdas.h
+* jni/mybuild.bat
+* lint.xml
+* obj/
+* obj/local/
+* obj/local/armeabi-v7a/
+* obj/local/armeabi-v7a/libhdaec.so
+* obj/local/armeabi-v7a/objs/
+* obj/local/armeabi-v7a/objs/hdaec/
+* obj/local/armeabi-v7a/objs/hdaec/SimpleFileIOTest.o
+* obj/local/armeabi-v7a/objs/hdaec/SimpleFileIOTest.o.d
+* obj/local/armeabi-v7a/objs/hdaec/adt_hdaec_jni.o
+* obj/local/armeabi-v7a/objs/hdaec/adt_hdaec_jni.o.d
+* proguard-project.txt
+* res/
+* res/drawable-hdpi/
+* res/drawable-hdpi/ic_launcher.png
+* res/drawable-mdpi/
+* res/drawable-mdpi/ic_launcher.png
+* res/drawable-xhdpi/
+* res/drawable-xhdpi/ic_launcher.png
+* res/layout/
+* res/layout/activity_main.xml
+* res/menu/
+* res/menu/main.xml
+* res/values-sw600dp/
+* res/values-sw600dp/dimens.xml
+* res/values-sw720dp-land/
+* res/values-sw720dp-land/dimens.xml
+* res/values-v11/
+* res/values-v11/styles.xml
+* res/values-v14/
+* res/values-v14/styles.xml
+* res/values/
+* res/values/dimens.xml
+* res/values/strings.xml
+* res/values/styles.xml
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:27.+
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* libs/armeabi-v7a/libhdaec.so => mainActivity/src/main/jniLibs/armeabi-v7a/libhdaec.so
+* src/ => mainActivity/src/main/java/
+
+Missing Android Support Repository:
+-----------------------------------
+Some useful libraries, such as the Android Support Library, are
+installed from a special Maven repository, which should be installed
+via the SDK manager.
+
+It looks like this library is missing from your SDK installation at:
+null
+
+To install it, open the SDK manager, and in the Extras category,
+select "Android Support Repository". You may also want to install the
+"Google Repository" if you want to use libraries like Google Play
+Services.
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
