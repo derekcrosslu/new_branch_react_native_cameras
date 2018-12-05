@@ -1,17 +1,17 @@
 {
   "buildFiles": [
-    "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk",
-    "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk"
+    "/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Android.mk",
+    "/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Application.mk"
   ],
   "cleanCommands": [
-    "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/lib clean"
+    "/Users/cooper09/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/lib clean"
   ],
   "libraries": {
     "hdaec-debug-armeabi-v7a": {
       "artifactName": "hdaec",
-      "buildCommand": "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/lib /Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libhdaec.so",
+      "buildCommand": "/Users/cooper09/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/lib /Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libhdaec.so",
       "abi": "armeabi-v7a",
-      "output": "/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libhdaec.so"
+      "output": "/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libhdaec.so"
     }
   }
 }
