@@ -17,7 +17,8 @@ export default class KeyCardScreen extends Component {
     this.unlockedDoor2 = this.unlockedDoor2.bind(this);
     this.closedDoor = this.closedDoor.bind(this);
     //coopeer s - add server request to lock/unlock featured doors
-    this.getOpenLock = this.getOpenLock.bind(this);
+    this.getOpenFront = this.getOpenFront.bind(this);
+    this.getOpenPkgRm = this.getOpenPkgRm.bind(this);
   }
 
   unlockedDoor() {
@@ -36,15 +37,19 @@ export default class KeyCardScreen extends Component {
   unlockedDoor2() {
     if (this.state.value2 === 1) {
       this.setState({
-        change2: 'Door is open'
+        change2: 'Package Door is open',
+        value2: 1
       });
+      alert("Package Room is unlocked.");
+      this.interval = setInterval(() => this.closedDoor(), 5000);
     }
   }
 
   closedDoor() {
     this.setState({
       change: 'Front Door',
-      value: 0
+      value: 0,
+      value2: 0
     });
   }
 
@@ -52,7 +57,7 @@ export default class KeyCardScreen extends Component {
     clearInterval(this.interval);
   }
 
-  getOpenLock() {
+  getOpenFront() {
     axios.get('http://172.85.43.18:18000/state.xml?relay1State=1&time=1544110432472')
       .then((res) => {
         // cooper s - receive whatever data you need hear then call unlockedDoor
@@ -62,6 +67,20 @@ export default class KeyCardScreen extends Component {
       alert('error with relay server request: ', err );
     });  
   }//end openLck
+
+  getOpenPkgRm() {
+    alert("Gotta Go for Number 2...");
+    this.unlockedDoor2();
+    axios.get('http://172.85.43.18:18000/state.xml?relay1State=1&time=1544110432472')
+      .then((res) => {
+        // cooper s - receive whatever data you need hear then call unlockedDoor
+        this.unlockedDoor2();
+    })
+    .catch((err) => {
+      alert('error with relay server request: ', err );
+    });  
+  }//end openLck
+  
 
   render() {
     return (
@@ -92,7 +111,7 @@ export default class KeyCardScreen extends Component {
               maximumValue={1}
               thumbStyle={{width: 60, height: 60, borderRadius:30}}
               trackStyle={{width: '100%', height: 60, borderRadius: 30, backgroundColor: '#BA2745'}}
-              onSlidingComplete={this.getOpenLock}
+              onSlidingComplete={this.getOpenFront}
             />
           </View>
 
@@ -109,7 +128,7 @@ export default class KeyCardScreen extends Component {
               maximumValue={1}
               thumbStyle={{width: 60, height: 60, borderRadius:30}}
               trackStyle={{width: '100%', height: 60, borderRadius: 30, backgroundColor: '#BA2745'}}
-              onSlidingComplete={this.unlockedDoor2}
+              onSlidingComplete={this.getOpenPkgRm}
             />
           </View>
    
