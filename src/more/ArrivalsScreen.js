@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage} from 'react-native';
 
 export default class ArrivalsScreen extends Component {
   constructor(props) {
@@ -7,9 +7,36 @@ export default class ArrivalsScreen extends Component {
     this.state = {
       display: 'GUESTS',
       guests: ["Travis Brooks", "Reagan Dean", "Joe Flacco", "Tom Brady", "Jackie Williams", "Stuart Mccolm", "Yessica Charry", "Jeff Bezos", "Elon Musk", "Steve Jobs", "Mark Zuckerburg", "Tim Cook", "Pat Gelsinger", "Sundar Pichai", "Satya Nadella"],
-      deliveries: ["Gator Dry Cleaning"]
+      deliveries: ["Gator Dry Cleaning"],
+      guestList: [{FIRST_NAME: "none", LAST_NAME: ""}],
+      companyList: [{FIRST_NAME: "none", LAST_NAME: ""}]
     }
     this.goTo = this.goTo.bind(this);
+    this._retrieveData = this._retrieveData.bind(this);
+  }
+
+  componentWillMount() {
+    this._retrieveData();
+  }
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('GuestInfo');
+      if (value !== null) {
+        let isTrue = JSON.parse(value)
+        if (isTrue) {
+          console.log("HELELELELELELELELELE", isTrue);
+          this.setState({
+            guestList: isTrue.guests,
+            companyList: isTrue.companies
+          });
+        } else {
+          console.log('Something went wrong');
+        } 
+      } 
+     } catch (error) {
+       console.log("there was an error trying to find things in storage or something", error);
+     }
   }
 
   goTo(path) {
@@ -61,7 +88,7 @@ export default class ArrivalsScreen extends Component {
           </View>
 
           <ScrollView style={styles.body}>
-          {this.state.display === "GUESTS" ? this.state.guests.map((guest, index) => (
+          {/* {this.state.display === "GUESTS" ? this.state.guests.map((guest, index) => (
             <TouchableOpacity style={styles.feature} key={index} onPress={() => this.props.navigation.navigate("Guest", {"guest": guest})}>
             <View style={{flex: 1}}>
               <Text style={styles.featureText}>{guest}</Text>
@@ -76,6 +103,29 @@ export default class ArrivalsScreen extends Component {
             <TouchableOpacity style={styles.feature} key={index} onPress={() => this.props.navigation.navigate("Delivery", {"delivery": delivery})}>
               <View style={{flex: 1}}>
                 <Text style={styles.featureText}>{delivery}</Text>
+              </View>
+  
+              <View style={{paddingRight: 10}}>
+                <Image source={require('../../img/ic_arrow_right_40_10.png')} style={{width: 35, height: 35}}/>
+              </View>
+            </TouchableOpacity>))
+            
+            } */}
+            {this.state.display === "GUESTS" ? this.state.guestList.map((guest, index) => (
+            <TouchableOpacity style={styles.feature} key={index} onPress={() => this.props.navigation.navigate("Guest", {"guest": guest})}>
+            <View style={{flex: 1}}>
+              <Text style={styles.featureText}>{guest.FIRST_NAME} {guest.LAST_NAME}</Text>
+            </View>
+
+            <View style={{paddingRight: 10}}>
+              <Image source={require('../../img/ic_arrow_right_40_10.png')} style={{width: 35, height: 35}}/>
+            </View>
+          </TouchableOpacity>
+            )) : 
+            this.state.companyList.map((delivery, index) => (
+            <TouchableOpacity style={styles.feature} key={index} onPress={() => this.props.navigation.navigate("Delivery", {"delivery": delivery})}>
+              <View style={{flex: 1}}>
+                <Text style={styles.featureText}>{delivery.LAST_NAME}</Text>
               </View>
   
               <View style={{paddingRight: 10}}>

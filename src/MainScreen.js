@@ -8,43 +8,112 @@ export default class MainScreen extends Component {
     this.state = {
 
     }
+
     this.getNvr = this.getNvr.bind(this);
+    this._retrieveData = this._retrieveData.bind(this);
+    this.saveUserInfo = this.saveUserInfo.bind(this);
+    this.saveUserInfo2 = this.saveUserInfo2.bind(this);
   }
 
   componentWillMount() {
-    // this.getNvr();
-    // console.log("This thing rang");
-    let loginData = {username: 'jmulder', password: '123456', macwifi: '12:12:12:12'};
+    this._retrieveData();
+    
+  }
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('Persist');
+      if (value !== null) {
+        let isTrue = JSON.parse(value);
+        if (isTrue) {
+          // console.log('values for user', isTrue.userData[0]);
+          axios.get('http://104.248.110.70:3000/getbuildinginfo', {params: {id: isTrue.userData[0].ID}})
+            .then((res) => {
+              var buildingID = res.data[0].BUILDING_ID;
+              var apartmentID = res.data[0].APARTMENT_ID;
+              // console.log(res.data, apartmentID,buildingID, 'building info response');
+              // console.log(res.data[0].PERSON_ID, 'this is the person ID'); //save res.data[0] need this information for users who have permission to person nevermind it is saved below just 
+              //just need to remeber where it is saved and use that info to find those people's profile definetely going to need to use join
+              axios.get('http://104.248.110.70:3000/guestsdeliveries', {params: {id: res.data[0].PERSON_ID}}) //res.data[0].PERSON_ID
+                .then((rez) => {
+                  // console.log(rez.data, 'guest delivery date');
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+
+
+              axios.get('http://104.248.110.70:3000/guestinfo', {params: {personId: res.data[0].PERSON_ID}}) 
+                .then((res1) => {
+                  console.log(res1.data, 'guest info people only');
+                  this.saveUserInfo2(res1.data.results, res1.data.results2)
+                })
+                .catch((err) => {
+                  console.log(err);
+                });  
+
+              axios.get('http://104.248.110.70:3000/buildinginfo', {params: {id: buildingID}})
+                .then((response) => {
+                  // console.log('hello',response.data, 'hello');
+                  // this.saveUserInfo(res.data, response.data);
+
+                  axios.get('http://104.248.110.70:3000/apartmentnum', {params: {id: apartmentID}})
+                    .then((apartmentRes) => {
+                      // console.log(apartmentRes.data, "Apartmeßnt info");
+                      this.saveUserInfo(res.data, response.data, apartmentRes.data);
+
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    })
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          console.log('was not true', value);
+        } 
+      } else {
+
+        console.log('The key you searched for doesnt exist');
+      }
+     } catch (error) {
+       console.log("there was an error trying to find things in storage or something", error);
+     }
+  } 
+
+
+  saveUserInfo(data, moreData, apartmentInfo) {
+    let UserInfo = {accountInfo: data, buildingInfo: moreData, apartmentInfo: apartmentInfo};
     _storeData = async () => {
       try {
-        // console.log("hello will");
-        await AsyncStorage.setItem('loginData', JSON.stringify(loginData));
+        await AsyncStorage.setItem('UserInfo', JSON.stringify(UserInfo));
+        console.log("user info was saved!");
       } catch (error) {
-        // Error saving data
-        console.log('There was an error!');
+        console.log('There was an error!', error);
       }
     }
-    // _storeData();
+    _storeData(); 
   }
-  componentDidMount() {
-    _retrieveData = async () => {
+
+  saveUserInfo2(guests, companies) {
+    let Guests = {guests: guests, companies: companies};
+    _storeData2 = async () => {
       try {
-        // console.log("hello did");
-        const value = await AsyncStorage.getItem('loginData');
-        if (value !== null) {
-          // We have data!!
-          console.log(JSON.parse(value), 'THIS IS THE VALUE!');
-        } else {
-          console.log('The key you searched for doesnt exist');
-        }
-       } catch (error) {
-         // Error retrieving data
-         console.log("there was an error trying to find things in storage or something");
-       }
+        await AsyncStorage.setItem('GuestInfo', JSON.stringify(Guests));
+        console.log("Guest info was save!!");
+      } catch (error) {
+        console.log('There was an error!', error);
+      }
     }
-    // console.log("component did mount");
-    // _retrieveData();
+    _storeData2(); 
   }
+
 
   getNvr() {
       axios.get('http://96.239.60.172:9002')

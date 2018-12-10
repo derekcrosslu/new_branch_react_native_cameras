@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
 import Slider from "react-native-slider";
 
-import axios from 'axios';
-
 export default class KeyCardScreen extends Component {
   constructor(props) {
     super(props);
@@ -16,29 +14,21 @@ export default class KeyCardScreen extends Component {
     this.unlockedDoor = this.unlockedDoor.bind(this);
     this.unlockedDoor2 = this.unlockedDoor2.bind(this);
     this.closedDoor = this.closedDoor.bind(this);
-
-    this.getLck = this.getLck.bind(this);
   }
-
 
   unlockedDoor() {
     if (this.state.value === 1) {
       this.setState({
-        change: 'Door is open',
-        value: 1
+        change: 'Door is open'
       });
       // make it so that one function can handle all of the doors open 
       // and another function can handle all closing doors.
-      alert("Lock the Door...Again");
-
-      this.interval = setInterval(() => this.closedDoor(), 10000);
-      //this.getLck();
+      this.interval = setInterval(() => this.closedDoor(), 5000);
     }
   }
 
   unlockedDoor2() {
     if (this.state.value2 === 1) {
-      alert("Door is unlocked!");
       this.setState({
         change2: 'Door is open'
       });
@@ -47,31 +37,13 @@ export default class KeyCardScreen extends Component {
 
   closedDoor() {
     this.setState({
-      change: 'Front Door',
-      value: 0
+      change: 'Front Door'
     });
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-
-  //cooper s - added get lock function to determine if 
-  getLck() {
-    alert("getLCK 3");
-    axios.get('http://172.85.43.18:18000/state.xml?relay1State=1&time=1544110432472')
-    .then((res) => {
-      console.log(res, 'relay server response');
-      alert("Server Response: "+  res.data );
-      this.unlockedDoor();
-    //  this.interval = setInterval(() => this.closedDoor(), 5000);
-    })
-    .catch((err) => {
-      alert('error with relay server request: ', err );
-    }) 
-
-}//end getLck
-
 
   render() {
     return (
@@ -102,7 +74,7 @@ export default class KeyCardScreen extends Component {
               maximumValue={1}
               thumbStyle={{width: 60, height: 60, borderRadius:30}}
               trackStyle={{width: '100%', height: 60, borderRadius: 30, backgroundColor: '#BA2745'}}
-              onSlidingComplete={this.getLck }
+              onSlidingComplete={this.unlockedDoor}
             />
           </View>
 
@@ -130,6 +102,7 @@ export default class KeyCardScreen extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

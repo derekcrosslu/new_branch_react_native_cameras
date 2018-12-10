@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, Alert} from 'react-native';
+import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, Alert, AsyncStorage} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
+import axios from 'axios';
 
 export default class ChangePwScreen extends Component {
   constructor(props) {
@@ -17,6 +18,10 @@ export default class ChangePwScreen extends Component {
     this.PassWordRef = this.updateRef.bind(this, 'PassWord');
     this.ConfirmPassWordRef = this.updateRef.bind(this, 'ConfirmPassWord');
     this.renderPasswordAccessory = this.renderPasswordAccessory.bind(this);
+    this._retrieveUserData = this._retrieveUserData.bind(this);
+    this.checkPassWord = this.checkPassWord.bind(this);
+    this.changePassWord = this.changePassWord.bind(this);
+
 
     this.state = {
       OldPw: '',
@@ -26,6 +31,33 @@ export default class ChangePwScreen extends Component {
     };
 
   }
+
+  componentWillMount() {
+    this._retrieveUserData();
+  }
+
+  _retrieveUserData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('Persist');
+      if (value !== null) {
+        let isTrue = JSON.parse(value);
+        if (isTrue) {
+          console.log('CHANGE PASSWORD SCREEN', isTrue.userData[0].ID);
+          this.setState({
+            userID: isTrue.userData[0].ID,
+            email: isTrue.userData[0].EMAIL
+          })
+        } else {
+          console.log('was not true', value);
+        } 
+      } else {
+
+        console.log('The key you searched for doesnt exist');
+      }
+     } catch (error) {
+       console.log("there was an error trying to find things in storage or something", error);
+     }
+  }  
 
   onFocus() {
     console.log('onFocus Ran!');
@@ -70,6 +102,50 @@ export default class ChangePwScreen extends Component {
     this.ConfirmPassWord.blur();
   }
 
+  checkPassWord() {
+    let errors = {};
+    let wifiMac = 'abc123';
+    let password = this["OldPw"].value();
+    let userName = this.state.email;
+
+    axios.post(`http://104.248.110.70:3000/api/${userName}/${password}/${wifiMac}`)
+    .then((res) => {
+      // console.log(res.data, "server response");
+      if (res.data === 'invalid username ' ) {
+        errors["OldPw"] = "Username is invalid";
+      } else if (res.data === 'invalid password') {
+        errors["OldPw"] = "Password is invalid";
+      }
+        console.log(res.data, 'console.log of server response from data');
+      this.setState({ errors });
+      if (Object.keys(errors).length > 0) {
+        console.log(Object.keys(errors).length, 'errors ocurred try again.');
+      } else {
+        this.changePassWord();
+      }
+      //put request here that makes the password change to the new one
+      // this.changePassWord();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  changePassWord() {
+    axios.post(`http://104.248.110.70:3000/changepw`, {id : this.state.userID, new: this.state.PassWord})
+      .then((res) => {
+        console.log('response', res.data);
+        if (res.data === 'Password Changed!') {
+          Alert.alert('Password Changed!');
+          this.props.navigation.goBack();
+        } else {
+          Alert.alert('PASSWORD NOT CHANGED!');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   onSubmit() {
     let errors = {};
@@ -81,22 +157,24 @@ export default class ChangePwScreen extends Component {
         submitToServer[name] = value;
         if (!value) {
           errors[name] = 'Should not be empty';
-        } else {
-          if ('OldPw' === name && value.length < 6) {
-            errors[name] = 'Too short';
-          }
-          if ('PassWord' === name && value.length < 6) {
-            errors[name] = 'Too short';
-          }
-          if ('ConfirmPassWord' === name && value.length < 6) {
-            errors[name] = 'Too short';
-          }
         }
+        // } else {
+        //   if ('OldPw' === name && value.length < 6) {
+        //     errors[name] = 'Too short';
+        //   }
+        //   if ('PassWord' === name && value.length < 6) {
+        //     errors[name] = 'Too short';
+        //   }
+        //   if ('ConfirmPassWord' === name && value.length < 6) {
+        //     errors[name] = 'Too short';
+        //   }
+        // }
       });
       if (submitToServer['PassWord'] !== submitToServer['ConfirmPassWord']) {
         errors['PassWord'] = "Passwords don't match";
         errors['ConfirmPassWord'] = "Passwords don't match";
       }
+      
       // if (submitToServer['OldPw'] !== 'cowgoesmoo') {
       //   errors["OldPw"] = "Password is incorrect";
       // }
@@ -107,8 +185,9 @@ export default class ChangePwScreen extends Component {
       console.log(Object.keys(errors).length, 'errors ocurred try again.');
     } else {
       console.log(submitToServer, 'sends to server!');
-      Alert.alert('Password Changed!');
-      this.props.navigation.goBack();
+      this.checkPassWord();
+      // Alert.alert('Password Changed!');
+      // this.props.navigation.goBack();
     }
   }
 

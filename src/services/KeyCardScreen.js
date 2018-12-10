@@ -1,14 +1,43 @@
 import React, { Component } from 'react';
-import { StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage } from 'react-native';
 import ArrowSwitch from './ArrowSwitch';
+import Axios from 'axios';
 
 export default class KeyCardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: ["Travis Brooks", "Reagan Dean", "Elon Musk", "Other Guy","Jackie Williams", "Joseph Mulder", "Donald Cross"]
+      users: [""]    
     }
     this.changeArrow = this.changeArrow.bind(this);
+    this.passDownInfo = this.passDownInfo.bind(this);
+    this.nextScreen = this.nextScreen.bind(this);
+    this._retrieveData = this._retrieveData.bind(this);
+  }
+
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('GuestInfo');
+      if (value !== null) {
+        let isTrue = JSON.parse(value)
+        if (isTrue) {
+          console.log("info was saved", isTrue);
+          let guestArr = [];
+          for (var i = 0; i < isTrue.guests.length; i++) {
+            var guestStr = isTrue.guests[i].FIRST_NAME + ' ' + isTrue.guests[i].LAST_NAME;
+            guestArr.push(guestStr);
+          }
+          this.setState({
+            users: guestArr
+          });
+        } else {
+          console.log('Something went wrong');
+        } 
+      } 
+     } catch (error) {
+       console.log("there was an error trying to find things in storage or something", error);
+     }
   }
 
   changeArrow() {
@@ -24,6 +53,111 @@ export default class KeyCardScreen extends Component {
     this.setState({
       showUser: newVar
     });
+  }
+
+  componentWillMount() {
+    this._retrieveData();
+  }
+
+  passDownInfo(info, index) {
+    if (index === 0) {
+      this.setState({
+        passDownInfo: info
+      }); 
+    } else if (index === 1) {
+      this.setState({
+        passDownInfo2: info
+      });    
+    } else if (index === 2) {
+      this.setState({
+        passDownInfo3: info
+      });      
+    } else if (index === 3) {
+      this.setState({
+        passDownInfo4: info
+      });  
+    } else if (index === 4) {
+      this.setState({
+        passDownInfo5: info
+      });  
+    } else if (index === 5) {
+      this.setState({
+        passDownInfo6: info
+      });  
+    } else if (index === 6) {
+      this.setState({
+        passDownInfo7: info
+      });  
+    } else if (index === 7) {
+      this.setState({
+        passDownInfo8: info
+      });  
+    } else if (index === 8) {
+      this.setState({
+        passDownInfo9: info
+      });  
+    } else if (index === 9) {
+      this.setState({
+        passDownInfo10: info
+      });  
+    } else if (index === 10) {
+      this.setState({
+        passDownInfo11: info
+      });  
+    } else if (index === 11) {
+      this.setState({
+        passDownInfo12: info
+      });  
+    } else if (index === 12) {
+      this.setState({
+        passDownInfo13: info
+      });  
+    } else if (index === 13) {
+      this.setState({
+        passDownInfo14: info
+      });  
+    } else if (index === 14) {
+      this.setState({
+        passDownInfo15: info
+      });  
+    } else if (index === 15) {
+      this.setState({
+        passDownInfo16: info
+      });  
+    } else if (index === 16) {
+      this.setState({
+        passDownInfo17: info
+      });  
+    } else if (index === 17) {
+      this.setState({
+        passDownInfo18: info
+      });  
+    } else if (index === 18) {
+      this.setState({
+        passDownInfo19: info
+      });  
+    } else if (index === 19) {
+      this.setState({
+        passDownInfo20: info
+      });  
+    }
+    
+    console.log(this.state.passDownInfo,this.state.passDownInfo2, 'passdowninfo log');
+  }
+
+  nextScreen() {
+    if (Object.keys(this.state).length === 1) {
+          // Make an error message saying you must select someone and give them a fob or card
+    } else {
+      var infoObj = {};
+      for (k in this.state) {
+        if (k !== 'users') {
+          infoObj[k] = this.state[k];
+        }
+      }
+      this.props.navigation.navigate("Step2", {params: infoObj});  
+      // this.props.navigation.navigate("Step2", {params: this.state.passDownInfo});  
+    }
   }
 
   render() {
@@ -44,7 +178,7 @@ export default class KeyCardScreen extends Component {
             <View style={styles.center}>
               <Text style={styles.headerText}>Order Key Cards/FOBs</Text>
             </View>
-            <TouchableOpacity style={{width: 50, padding: 5, marginRight: 10}} onPress={() => this.props.navigation.navigate("Step2")}>
+            <TouchableOpacity style={{width: 50, padding: 5, marginRight: 10}} onPress={() => this.nextScreen()}>
               <Text style={{color: 'white', fontSize: 18}}>Next</Text>
             </TouchableOpacity>
           </View>
@@ -77,7 +211,7 @@ export default class KeyCardScreen extends Component {
           <View style={{paddingHorizontal: 50, width: '100%', paddingTop: 20, flex: 1}}>
             <ScrollView style={{flex: 1}}>
               {this.state.users.map((user, index) => (
-                  <ArrowSwitch user={user} key={index}/>
+                  <ArrowSwitch user={user} key={index} keyz={index} passDownInfo={this.passDownInfo}/>
               ))} 
             </ScrollView>
           </View>

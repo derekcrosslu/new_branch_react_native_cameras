@@ -20,6 +20,7 @@ export default class CustomFilter extends Component {
     this.fridayCheck = this.fridayCheck.bind(this);
     this.saturdayCheck = this.saturdayCheck.bind(this);
     this.sundayCheck = this.sundayCheck.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   mondayCheck() {
@@ -68,6 +69,33 @@ export default class CustomFilter extends Component {
     this.setState({
         sunday: opp
     });
+  }
+
+  submit() {
+    var dayString = '';
+    if (this.state.monday) {
+        dayString += "Mon,";
+    }
+    if (this.state.tuesday) {
+        dayString += 'Tues,'; 
+    }
+    if (this.state.wednesday) {
+        dayString += 'Wed,';
+    }
+    if (this.state.thursday) {
+        dayString += 'Thur,';
+    } 
+    if (this.state.friday) {
+        dayString += 'Fri,';
+    }
+    if (this.state.saturday) {
+        dayString += 'Sat,';
+    }
+    if (this.state.sunday) {
+        dayString += 'Sun,';
+    }
+    this.props.daysSelected(dayString);
+    this.props.goBack();
   }
 
   render() {
@@ -224,7 +252,7 @@ export default class CustomFilter extends Component {
                 <TouchableOpacity style={{padding: 15, marginRight: '15%',  marginLeft: '5%'}} onPress={this.props.goBack}>
                     <Text style={{color: '#BA2745', fontSize: 16, fontWeight: 'bold'}}>Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{padding: 15, marginLeft: '20%'}} onPress={this.props.goBack}>
+                <TouchableOpacity style={{padding: 15, marginLeft: '20%'}} onPress={() => this.submit()}>
                     <Text style={{color: 'green', fontSize: 16, fontWeight: 'bold'}}>Apply</Text>
                 </TouchableOpacity>
             </View>

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Platform, Text, View, TouchableOpacity, Image } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import DeviceInfo from 'react-native-device-info';
@@ -21,14 +21,20 @@ export default class Login extends Component {
     this.renderPasswordAccessory = this.renderPasswordAccessory.bind(this);
 
     this.state = {
-        username: 'dcross@virtualservice.net',
-        password: 'dc9822',
+        username: '',
+        password: '',
         secureTextEntry: true,
         wifiMac: 'Not yet taken'
     }
+    this.getDeviceInfo = this.getDeviceInfo.bind(this);
   }
 
   componentWillMount() {
+    this.getDeviceInfo();
+  }
+
+
+  getDeviceInfo(){
     DeviceInfo.getMACAddress().then(mac => {
       this.setState({
         wifiMac: mac
@@ -36,9 +42,8 @@ export default class Login extends Component {
     })
     .catch((error) => {
       console.log(error);
-    })
+    }); 
   }
-
 
   onFocus() {
     let { errors = {} } = this.state;
@@ -96,7 +101,6 @@ export default class Login extends Component {
           errors["username"] = "Can't leave empty";
           this.setState({ errors });   
         } else {
-          //axios.post(`http://68.183.98.212:3000/api/${username}/${password}/${wifiMac}`)
           axios.post(`http://104.248.110.70:3000/api/${username}/${password}/${wifiMac}`)
             .then((res) => {
               // console.log(res.data, "server response");
@@ -107,12 +111,12 @@ export default class Login extends Component {
               } else if (res.data === 'wifimacaddress not registered') {
                 errors["wifiMac"] = 'Wifimacaddress not registered';
               }
-
+                console.log(res.data, 'console.log of server response from data');
               this.setState({ errors });
               if (Object.keys(errors).length > 0) {
                 console.log(Object.keys(errors).length, 'errors ocurred try again.');
               } else {
-                this.props.login();
+                this.props.login(res.data);
               }
 
             })

@@ -3,11 +3,11 @@ import { StyleSheet, View, AsyncStorage } from 'react-native';
 import Navigation from './src/Navigation.js';
 import Login from './src/Login.js';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: undefined,
       rememberMe: true,
       PersistingLogin: false
     }
@@ -32,12 +32,12 @@ class App extends Component {
     this._rememberData(opp);
   }
 
-  logIn() {
+  logIn(data) {
     this.setState({
       loggedIn: true
     });
 
-    let Persist = {username: 'jmulder', PersistingLogin: true};
+    let Persist = {username: 'jmulder', PersistingLogin: true, userData: data};
     _storeData = async () => {
       try {
         await AsyncStorage.setItem('Persist', JSON.stringify(Persist));
@@ -69,7 +69,7 @@ class App extends Component {
         });
         console.log(rememberValue, "value");
       } else {
-        console.log('Nothing was found');
+        console.log('Nothing was found', rememberValue);
       }
     } catch (error) {
       console.log("retrieveRemeberData", error);
@@ -100,11 +100,20 @@ class App extends Component {
       if (value !== null) {
         let isTrue = JSON.parse(value).PersistingLogin;
         if (isTrue) {
+          console.log('istrue ran');
           this.setState({
             loggedIn: true
           });
-        }
+        } else {
+          console.log('was not true');
+          this.setState({
+            loggedIn: false
+          }); 
+        } 
       } else {
+        this.setState({
+          loggedIn: false
+        }); 
         console.log('The key you searched for doesnt exist');
       }
      } catch (error) {
@@ -114,10 +123,12 @@ class App extends Component {
 
   render() { 
     let Page;
-    if (!this.state.loggedIn) {
+    if (this.state.loggedIn === false) {
       Page = <Login login={this.logIn} rememberMeChange={this.rememberMe} rememberMe={this.state.rememberMe}/>;
-    } else {
+    } else if (this.state.loggedIn === true) {
       Page = <Navigation screenProps={{logOut: this.logOut}}/>;
+    } else {
+      Page = <View></View>;
     }
 
     return (
@@ -127,7 +138,7 @@ class App extends Component {
     );
   }
 }
-export default App;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1

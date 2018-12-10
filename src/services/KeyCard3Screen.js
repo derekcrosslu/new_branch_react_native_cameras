@@ -18,9 +18,30 @@ export default class KeyCard3Screen extends Component {
     this.onSubmitcardNumber = this.onSubmitcardNumber.bind(this);
     this.onSubmitcvv = this.onSubmitcvv.bind(this);
 
+    this.ShipFedex = this.ShipFedex.bind(this);
+    this.ShipOvernight = this.ShipOvernight.bind(this);
+    this.ShipPickup = this.ShipPickup.bind(this);
+    this.ShipUsps = this.ShipUsps.bind(this);
+
     this.nameRef = this.updateRef.bind(this, 'name');
     this.cardNumberRef = this.updateRef.bind(this, 'cardNumber');
     this.cvvRef = this.updateRef.bind(this, 'cvv');
+
+    this.firstRef = this.updateRef.bind(this, "first");
+    this.lastRef = this.updateRef.bind(this, "last");
+    this.addressRef = this.updateRef.bind(this, "address");
+    this.cityRef = this.updateRef.bind(this, "city");
+    this.stateLiveRef = this.updateRef.bind(this, 'stateLive');
+    this.zipCodeRef = this.updateRef.bind(this, "zipCode");
+
+    this.onSubmitFirst = this.onSubmitFirst.bind(this);
+    this.onSubmitLast = this.onSubmitLast.bind(this);
+    this.onSubmitAddress = this.onSubmitAddress.bind(this);
+    this.onSubmitCity = this.onSubmitCity.bind(this);
+    this.onSubmitStateLive = this.onSubmitStateLive.bind(this);
+    this.onSubmitzipCode = this.onSubmitzipCode.bind(this);
+    this.selectMonth = this.selectMonth.bind(this);
+    this.selectYear = this.selectYear.bind(this);
 
     this.state = {
       card: "New",
@@ -32,7 +53,15 @@ export default class KeyCard3Screen extends Component {
       currentYear: '1232',
       yearArr: ["2018"],
       saveCard: false,
-      shippingOption: false
+      shippingOption: false,
+      first: "",
+      last: "",
+      address: "",
+      city: "",
+      stateLive: "",
+      zipCode: "",
+      errors: {},
+      listOfStates: ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
     }
   }
 
@@ -50,6 +79,48 @@ export default class KeyCard3Screen extends Component {
       currentYear: currentYear,
       yearArr: arr
     });
+    console.log(this.props.navigation.state.params, 'key card 3 screen logs');
+  }
+
+  selectMonth(itemValue, itemIndex) {
+    let monthNum;
+    // onValueChange={(itemValue, itemIndex) => this.setState({month: itemValue, monthIndex: itemIndex})}>
+    if (itemIndex < 9) {
+      monthNum = '0' + (itemIndex ); 
+    } else {
+      monthNum = '' + (itemIndex );
+    }
+    this.setState({month: itemValue, monthIndex: monthNum});
+  }
+
+  selectYear(itemValue, itemIndex) {
+    // onValueChange={(itemValue, itemIndex) => this.setState({currentYear: itemValue})}>
+    let yearNum = itemValue.slice(2);
+    this.setState({currentYear: itemValue, theYear: yearNum});
+  }
+
+  ShipFedex() {
+    this.setState({
+      shippingOption: "FedEX"
+    });
+  }
+
+  ShipOvernight() {
+    this.setState({
+      shippingOption: "overnight"
+    });
+  }
+
+  ShipUsps() {
+    this.setState({
+      shippingOption: "usps"
+    });
+  }
+
+  ShipPickup() {
+    this.setState({
+      shippingOption: "pickup"
+    });
   }
 
   cardSave() {
@@ -60,7 +131,6 @@ export default class KeyCard3Screen extends Component {
   }
 
   onFocus() {
-
     let { errors = {} } = this.state;
 
     for (let name in errors) {
@@ -75,7 +145,7 @@ export default class KeyCard3Screen extends Component {
   }
 
   onChangeText(text) {
-    ['name', 'cardNumber', 'cvv']
+    ['name', 'cardNumber', 'cvv', 'first','last', 'address', 'city', 'stateLive', 'zipCode']
       .map((name) => ({ name, ref: this[name] }))
       .forEach(({ name, ref }) => {
         if (ref.isFocused()) {
@@ -100,12 +170,35 @@ export default class KeyCard3Screen extends Component {
     this.cvv.blur();
   }
 
+  onSubmitFirst() {
+    this.last.focus();
+  }
+
+  onSubmitLast() {
+    this.address.focus();
+  }
+
+  onSubmitAddress() {
+    this.city.focus();
+  }
+
+  onSubmitCity() {
+    this.stateLive.focus();
+  }
+
+  onSubmitStateLive() {
+    this.zipCode.focus();
+  }
+
+  onSubmitzipCode() {
+    this.zipCode.blur();
+  }
 
   onSubmit() {
     let errors = {};
     let submitToServer = {};
     
-    ['name', 'cardNumber', 'cvv']
+    ['name', 'cardNumber', 'cvv', 'first','last', 'address', 'city', 'stateLive', 'zipCode']
       .forEach((name) => {
         let value = this[name].value();
         submitToServer[name] = value;
@@ -116,6 +209,15 @@ export default class KeyCard3Screen extends Component {
             errors[name] = 'Too short';
           }
         }
+        if (this.state.shippingOption === false) {
+          errors["shippingOption"] = "Select Shipping Method!";
+        }
+        if (!this.state.theYear) {
+          errors["expirationMonth"] = "Select Credit Cards expiration date!";
+        }
+        if (!this.state.monthIndex) {
+          errors["expirationMonth"] = "Select Credit Cards expiration date!";
+        }
       });
 
     this.setState({ errors });
@@ -124,8 +226,10 @@ export default class KeyCard3Screen extends Component {
     } else {
       console.log(submitToServer, 'sends to server!');
       // alert("Person added!");
-      Alert.alert('Person added!');
-      this.props.navigation.goBack();
+      // Alert.alert('Person added!');
+      // this.props.navigation.goBack();
+
+      this.props.navigation.navigate("Step4", {step12: this.props.navigation.state.params, step3: {nameoncard: this.state.name, cardNum: this.state.cardNumber, cvv: this.state.cvv, first: this.state.first, last: this.state.last, address: this.state.address, city: this.state.city, stateLive: this.state.stateLive, zipCode: this.state.zipCode, shippingOption: this.state.shippingOption, cardExperation: (this.state.monthIndex + this.state.theYear) }});
     }
   }
 
@@ -147,6 +251,10 @@ export default class KeyCard3Screen extends Component {
     let { name = 'name', cardNumber = 'house'} = data;
     let saveCard;
     let shippingOption;
+    let fedex;
+    let overnight;
+    let usps;
+    let pickup;
 
     if (this.state.saveCard) {
       saveCard = 
@@ -155,22 +263,96 @@ export default class KeyCard3Screen extends Component {
       </TouchableOpacity>;
   } else {
       saveCard =
-      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.cardSave}>
-        <Image source={require('../../img/check-box-empty.png')} style={{width: 27, height: 27}}/>
+      <TouchableOpacity style={{padding: 5, paddingRight: 15}} onPress={this.cardSave}>
+        <Image source={require('../../img/check-box-empty.png')} style={{width: 30, height: 30}}/>
       </TouchableOpacity>;
   }
 
-  if (this.state.shippingOption ==="FexEX") {
-    shippingOption =
-      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.cardSave}>
-        <Image source={require('../../img/check-box-empty.png')} style={{width: 27, height: 27}}/>
+  if (this.state.shippingOption ==="FedEX") {
+    fedex =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipFedex}>
+        <Image source={require('../../img/filled-circle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    overnight =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipOvernight}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    usps =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipUsps}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    pickup =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipPickup}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
       </TouchableOpacity>;
   } else if (this.state.shippingOption === "overnight") {
-
+    fedex =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipFedex}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    overnight =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipOvernight}>
+        <Image source={require('../../img/filled-circle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    usps =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipUsps}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    pickup =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipPickup}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
   } else if (this.state.shippingOption === "usps") {
-
+    fedex =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipFedex}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    overnight =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipOvernight}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    usps =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipUsps}>
+        <Image source={require('../../img/filled-circle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    pickup =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipPickup}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
   } else if (this.state.shippingOption === "pickup") {
-
+    fedex =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipFedex}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    overnight =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipOvernight}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    usps =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipUsps}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    pickup =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipPickup}>
+        <Image source={require('../../img/filled-circle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+  } else {
+    fedex =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipFedex}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    overnight =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipOvernight}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    usps =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipUsps}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
+    pickup =
+      <TouchableOpacity style={{padding: 5, paddingRight: 18}} onPress={this.ShipPickup}>
+        <Image source={require('../../img/emptycircle.png')} style={{width: 22, height: 22}}/>
+      </TouchableOpacity>;
   }
 
     return (
@@ -184,7 +366,7 @@ export default class KeyCard3Screen extends Component {
             <View style={styles.center}>
               <Text style={styles.headerText}>Order Key Cards/FOBs</Text>
             </View>
-            <TouchableOpacity style={{width: 50, padding: 5, marginRight: 10}} onPress={() => this.props.navigation.navigate("Step4")}>
+            <TouchableOpacity style={{width: 50, padding: 5, marginRight: 10}} onPress={() => this.onSubmit()}>
               <Text style={{color: 'white', fontSize: 18}}>Next</Text>
             </TouchableOpacity>
           </View>
@@ -199,14 +381,14 @@ export default class KeyCard3Screen extends Component {
 
           
           <ScrollView>
-            <Picker
+            {/* <Picker
               mode="dropdown"
               selectedValue={this.state.card}
               style={{ height: 60, width: '80%', marginLeft: '10%'}}
               onValueChange={(itemValue, itemIndex) => this.setState({card: itemValue})}>
               <Picker.Item label="New Card" value="New" />
               <Picker.Item label="Existing Card" value="Existing" />
-            </Picker>
+            </Picker> */}
 
             <Picker
               mode="dropdown"
@@ -283,14 +465,16 @@ export default class KeyCard3Screen extends Component {
                 labelTextStyle={{fontWeight: 'bold'}}
               />
             </View>
-
+            {(this.state.errors.expirationMonth === "Select Credit Cards expiration date!" || this.state.errors.expirationMonth === "Select Credit Cards expiration date!") 
+              ? <View style={{paddingLeft: 20}}><Text style={{fontSize: 18, color: 'red', fontWeight: 'bold'}}>{this.state.errors.expirationMonth}</Text></View>
+              : <View></View>}
             <View style={{flexDirection: 'row', width: '80%', paddingLeft: '10%'}}>
               <Picker
                 mode="dropdown"
                 selectedValue={this.state.month}
                 style={{ height: 60, width: '50%'}}
-                onValueChange={(itemValue, itemIndex) => this.setState({month: itemValue})}>
-                <Picker.Item label="Select One" value="Select One" />
+                onValueChange={(itemValue, itemIndex) => this.selectMonth( itemValue, itemIndex )}>
+                <Picker.Item label="Select Month" value="Select Month" />
                 <Picker.Item label="January" value="January" />
                 <Picker.Item label="February" value="February" />
                 <Picker.Item label="March" value="March" />
@@ -309,62 +493,163 @@ export default class KeyCard3Screen extends Component {
                 mode="dropdown"
                 selectedValue={this.state.currentYear}
                 style={{ height: 60, width: '50%'}}
-                onValueChange={(itemValue, itemIndex) => this.setState({currentYear: itemValue})}>
+                onValueChange={(itemValue, itemIndex) => this.selectYear(itemValue, itemIndex)}>
+                  <Picker.Item label="Select Year" value="Select Year"/>
                 {this.state.yearArr.map((year, index) => (
                   <Picker.Item label={year} value={year} key={index} />
                 ))}
               </Picker>
             </View>
             
-            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom: 15}}>
+            {/* <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom: 15}}>
                   {saveCard}
                   <Text style={{color: 'black', fontSize: 16}}>Save Credit Card</Text>
+            </View> */}
+
+            <View>
+              <View style={{paddingLeft: 30}}>
+                  {this.state.errors.shippingOption ?  
+                    <Text style={{fontSize: 20, color: 'red', fontWeight: 'bold'}}>{this.state.errors.shippingOption}</Text>
+                  : <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>Select Shipping</Text>}
+                {/* <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>Select Shipping</Text> */}
+              </View>
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom: 3, marginTop: 3}}onPress={this.ShipFedex}>
+                    {fedex}
+                    <Text style={{color: 'black', fontSize: 16}}>FedEX</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom: 3}} onPress={this.ShipOvernight}>
+                    {overnight}
+                    <Text style={{color: 'black', fontSize: 16}}>Overnight</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom:3}} onPress={this.ShipUsps}>
+                    {usps}
+                    <Text style={{color: 'black', fontSize: 16}}>USPS</Text>
+              </TouchableOpacity> */}
+              <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25, marginBottom:3}} onPress={this.ShipPickup}>
+                    {pickup}
+                    <Text style={{color: 'black', fontSize: 16}}>Pickup</Text>
+              </TouchableOpacity>
             </View>
 
-            <View>// NEEDS TO BE COMPLETED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-              <View style={{paddingLeft: 25}}>
-                <Text style={{fontSize: 16, color: 'black'}}>Select Shipping</Text>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25}}>
-                    {shippingOption}
-                    <Text style={{color: 'black', fontSize: 16}}>Save Credit Card</Text>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25}}>
-                    {shippingOption}
-                    <Text style={{color: 'black', fontSize: 16}}>Save Credit Card</Text>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25}}>
-                    {shippingOption}
-                    <Text style={{color: 'black', fontSize: 16}}>Save Credit Card</Text>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 25}}>
-                    {shippingOption}
-                    <Text style={{color: 'black', fontSize: 16}}>Save Credit Card</Text>
-              </View>
-            </View>
-          </ScrollView>
-          
-          {/* <View style={{width: '80%', paddingLeft: '10%'}}>
+                      <View style={{paddingTop: 10, paddingLeft: 15}}><Text style={{fontWeight: 'bold', fontSize: 18, color: 'black'}}>Billing Address</Text></View>
+          <View style={{width: '80%', paddingLeft: '10%'}}>
+            {/* <View style={{paddingTop: 10}}><Text style={{fontWeight: 'bold', fontSize: 18, color: 'black'}}>Billing Address</Text></View> */}
             <TextField
-              ref={this.cvvRef}
-              value={data.cvv}
+              ref={this.firstRef}
+              value={data.first}
               autoCorrect={false}
               enablesReturnKeyAutomatically={true}
               onFocus={this.onFocus}
               onChangeText={this.onChangeText}
-              onSubmitEditing={this.onSubmitcvv}
+              onSubmitEditing={this.onSubmitFirst}
               returnKeyType='next'
-              label='CVV'
-              error={errors.cvv}
+              label='First Name'
+              error={errors.first}
               fontSize={20}
               titleFontSize={14}
               labelFontSize={20}
-              maxLength={5}
+              maxLength={25}
               textColor="black"
               baseColor="black"
               labelTextStyle={{fontWeight: 'bold'}}
             />
-          </View> */}
+            <TextField
+              ref={this.lastRef}
+              value={data.last}
+              autoCorrect={false}
+              enablesReturnKeyAutomatically={true}
+              onFocus={this.onFocus}
+              onChangeText={this.onChangeText}
+              onSubmitEditing={this.onSubmitLast}
+              returnKeyType='next'
+              label='Last Name'
+              error={errors.last}
+              fontSize={20}
+              titleFontSize={14}
+              labelFontSize={20}
+              maxLength={25}
+              textColor="black"
+              baseColor="black"
+              labelTextStyle={{fontWeight: 'bold'}}
+            />
+            <TextField
+              ref={this.addressRef}
+              value={data.address}
+              autoCorrect={false}
+              enablesReturnKeyAutomatically={true}
+              onFocus={this.onFocus}
+              onChangeText={this.onChangeText}
+              onSubmitEditing={this.onSubmitAddress}
+              returnKeyType='next'
+              label='Address'
+              error={errors.address}
+              fontSize={20}
+              titleFontSize={14}
+              labelFontSize={20}
+              maxLength={25}
+              textColor="black"
+              baseColor="black"
+              labelTextStyle={{fontWeight: 'bold'}}
+            />
+            <TextField
+              ref={this.cityRef}
+              value={data.city}
+              autoCorrect={false}
+              enablesReturnKeyAutomatically={true}
+              onFocus={this.onFocus}
+              onChangeText={this.onChangeText}
+              onSubmitEditing={this.onSubmitCity}
+              returnKeyType='next'
+              label='City'
+              error={errors.city}
+              fontSize={20}
+              titleFontSize={14}
+              labelFontSize={20}
+              maxLength={25}
+              textColor="black"
+              baseColor="black"
+              labelTextStyle={{fontWeight: 'bold'}}
+            />
+            <TextField
+              ref={this.stateLiveRef}
+              value={data.stateLive}
+              autoCorrect={false}
+              enablesReturnKeyAutomatically={true}
+              onFocus={this.onFocus}
+              onChangeText={this.onChangeText}
+              onSubmitEditing={this.onSubmitStateLive}
+              returnKeyType='next'
+              label='State'
+              error={errors.stateLive}
+              fontSize={20}
+              titleFontSize={14}
+              labelFontSize={20}
+              maxLength={25}
+              textColor="black"
+              baseColor="black"
+              labelTextStyle={{fontWeight: 'bold'}}
+            />
+            <TextField
+              ref={this.zipCodeRef}
+              value={data.zipCode}
+              autoCorrect={false}
+              enablesReturnKeyAutomatically={true}
+              onFocus={this.onFocus}
+              onChangeText={this.onChangeText}
+              onSubmitEditing={this.onSubmitzipCode}
+              returnKeyType='next'
+              label='Zip Code'
+              error={errors.zipCode}
+              fontSize={20}
+              titleFontSize={14}
+              labelFontSize={20}
+              maxLength={25}
+              textColor="black"
+              baseColor="black"
+              labelTextStyle={{fontWeight: 'bold'}}
+            />
+          </View>
+          </ScrollView>
 
       </View> 
       </SafeAreaView>

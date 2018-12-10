@@ -42,6 +42,10 @@ export default class KeyCard2Screen extends Component {
 
   }
 
+  componentWillMount() {
+    console.log(this.props.navigation.state.params.params, 'this is the navigation props screen 2');
+  }
+
   onFocus() {
 
     let { errors = {} } = this.state;
@@ -105,7 +109,7 @@ export default class KeyCard2Screen extends Component {
       .forEach((name) => {
         let value = this[name].value();
         submitToServer[name] = value;
-        if (!value) {
+        if (!value && name !== 'address2') {
           errors[name] = 'Should not be empty';
         } else {
           if ('passcode' === name && value.length < 6) {
@@ -120,10 +124,13 @@ export default class KeyCard2Screen extends Component {
     } else {
       console.log(submitToServer, 'sends to server!');
       // alert("Person added!");
-      Alert.alert('Person added!');
-      this.props.navigation.goBack();
+      // Alert.alert('Person added!');
+      // this.props.navigation.goBack();
+      console.log(this.state, 'this is the keycard screen 3 state onSubmit');
+      this.props.navigation.navigate("Step3", {step1: this.props.navigation.state.params.params, step2: {shipName: this.state.name, shipPhone: this.state.phone, shipAddress1: this.state.address1, shipAddress2: this.state.address2, shipCity: this.state.city, shipState: this.state.stateA, shipZipCode: this.state.zipCode} });
     }
   }
+
 
   updateRef(name, ref) {
     this[name] = ref;
@@ -154,7 +161,7 @@ export default class KeyCard2Screen extends Component {
             <View style={styles.center}>
               <Text style={styles.headerText}>Order Key Cards/FOBs</Text>
             </View>
-            <TouchableOpacity style={{width: 50, padding: 5, marginRight: 10}} onPress={() => this.props.navigation.navigate("Step3")}>
+            <TouchableOpacity style={{width: 50, padding: 5, marginRight: 10}} onPress={() => this.onSubmit()}>
               <Text style={{color: 'white', fontSize: 18}}>Next</Text>
             </TouchableOpacity>
           </View>
@@ -253,7 +260,6 @@ export default class KeyCard2Screen extends Component {
                     <TextField
                         ref={this.cityRef}
                         value={data.city}
-                        secureTextEntry={secureTextEntry}
                         autoCapitalize='none'
                         autoCorrect={false}
                         enablesReturnKeyAutomatically={true}

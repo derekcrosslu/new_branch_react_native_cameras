@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, TextInput, Alert} from 'react-native';
+import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, TextInput, Alert, AsyncStorage} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import CustomFilterDays from './CustomFilterDays';
 import OpacityBackGround from '../OpacityBackGround';
+import Axios from 'axios';
 
 export default class AddDeliveryScreen extends Component {
   constructor(props) {
@@ -25,9 +26,12 @@ export default class AddDeliveryScreen extends Component {
 
     this.renderPasswordAccessory = this.renderPasswordAccessory.bind(this);
     this.filterOn = this.filterOn.bind(this);
+    this.daysSelected = this.daysSelected.bind(this);
+    this._retrieveData = this._retrieveData.bind(this);
+    this.saveUserInfo2 = this.saveUserInfo2.bind(this);
 
     this.state = {
-      company: '',
+      companyname: '',
       phoneNum: '',
       question: '',
       secureTextEntry: true,
@@ -45,6 +49,10 @@ export default class AddDeliveryScreen extends Component {
     }
   }
 
+  componentWillMount() {
+    this._retrieveData();
+  }
+
   filterOn() {
     let opp = !this.state.filter;
     this.setState({
@@ -52,6 +60,52 @@ export default class AddDeliveryScreen extends Component {
     });
   }
 
+  daysSelected(days) {
+    this.setState({
+      daysSelected: days
+    });
+  }
+
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('UserInfo');
+      if (value !== null) {
+        let isTrue = JSON.parse(value);
+        if (isTrue) {
+
+          this.setState({
+            PERSON_ID: isTrue.accountInfo[0].PERSON_ID,
+            BUILDING_ID: isTrue.accountInfo[0].BUILDING_ID,
+            APARTMENT_ID: isTrue.accountInfo[0].APARTMENT_ID
+          });
+
+
+        } else {
+          console.log('was not true', value);
+ 
+        } 
+      } else {
+
+        console.log('The key you searched for doesnt exist');
+      }
+     } catch (error) {
+       console.log("there was an error trying to find things in storage or something", error);
+     }
+  }
+
+  saveUserInfo2(guests, companies) {
+    let Guests = {guests: guests, companies: companies};
+    _storeData2 = async () => {
+      try {
+        await AsyncStorage.setItem('GuestInfo', JSON.stringify(Guests));
+        console.log("Guest info was save!!");
+      } catch (error) {
+        console.log('There was an error!', error);
+      }
+    }
+    _storeData2(); 
+  }
 
   onFocus() {
     let { errors = {} } = this.state;
@@ -119,9 +173,46 @@ export default class AddDeliveryScreen extends Component {
       console.log(Object.keys(errors).length, 'errors ocurred try again.');
     } else {
       console.log(submitToServer, 'sends to server!');
-      Alert.alert('Company added!');
-      // ToastExample.show('Added Company!', ToastExample.LONG);
-      this.props.navigation.goBack();
+      let permissionUser = '';
+
+      if ( this.state.Permissions === 'anyday' ) {
+          if (this.state.PermissionsTime === 'SpecifiedTime') {
+            permissionUser = `{[Each Day :: Time Period : ${this.state.date3},${this.state.date4}]}`;
+          } else {
+            permissionUser = '{[Each Day :: Any Time]}';
+          }
+      } else if (this.state.Permissions === 'DaysOfWeek')  {
+          if (this.state.PermissionsTime === 'SpecifiedTime') {
+            permissionUser = `{[Week Days : ${this.state.daysSelected} :: Time Period : ${this.state.date3},${this.state.date4}]}`;
+          } else {
+            permissionUser = `{[Week Days : ${this.state.daysSelected} :: Any Time]}`;
+          }
+      } else if (this.state.Permissions === 'DatePeriod') {
+          if (this.state.PermissionsTime === 'SpecifiedTime') {
+            permissionUser = `{[Date Period : ${this.state.date1},${this.state.date2} :: Time Period : ${this.state.date3},${this.state.date4}]}`;
+          } else {
+            permissionUser = `{[Date Period : ${this.state.date1},${this.state.date2} :: Any Time]}`;
+          }
+      }
+
+      Axios.post(`http://104.248.110.70:3000/newguest/`, {first: '', last: this.state.companyname, phone: this.state.phonenum, secretq: this.state.secret, passcode: this.state.passcode, iscompany: 1, permission: permissionUser, buildingid: this.state.BUILDING_ID, ownerid: this.state.PERSON_ID, apartmentid: this.state.APARTMENT_ID})
+        .then((res) => {
+          console.log(res.data);
+          Alert.alert('Company added!');
+
+          Axios.get('http://104.248.110.70:3000/guestinfo', {params: {personId: this.state.PERSON_ID}}) 
+          .then((res1) => {
+            console.log(res1.data, 'guest info people only');
+            this.saveUserInfo2(res1.data.results, res1.data.results2)
+          })
+          .catch((err) => {
+            console.log(err);
+          }); 
+          this.props.navigation.goBack();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
