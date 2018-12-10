@@ -44,7 +44,7 @@ export default class ServicesScreen extends Component {
   }
 
   emailSuggestion() {
-    let email = 'mailto:support@virtualdoorman.com?subject=Suggestion for Resident App';
+    let email = 'mailto:suggestions@virtualdoorman.com?subject=Suggestion for Resident App';
     Linking.openURL(email).then((url) => {
         if (url) {
           console.log('Initial url is: ' + url);
