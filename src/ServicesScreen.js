@@ -35,7 +35,7 @@ export default class ServicesScreen extends Component {
   }
 
   emailReport() {
-    let email = 'mailto:jmulder@virtualservice.net?subject=Problem with Resident App';
+    let email = 'mailto:support@virtualdoorman.com?subject=Problem with Resident App';
     Linking.openURL(email).then((url) => {
         if (url) {
           console.log('Initial url is: ' + url);
@@ -44,7 +44,7 @@ export default class ServicesScreen extends Component {
   }
 
   emailSuggestion() {
-    let email = 'mailto:jmulder@virtualservice.net?subject=Suggestion for Resident App';
+    let email = 'mailto:suggestions@virtualdoorman.com?subject=Suggestion for Resident App';
     Linking.openURL(email).then((url) => {
         if (url) {
           console.log('Initial url is: ' + url);

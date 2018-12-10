@@ -1,14 +1,40 @@
 import React, {Component} from 'react';
-import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {StyleSheet, Platform, SafeAreaView, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage} from 'react-native';
 
 export default class MoreScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+
+    }
+    this._retrieveUserData = this._retrieveUserData.bind();
   }
   componentWillMount() {
-    // console.log(ToastExample, 'Toast Example');
-    // ToastExample.show('Added ', ToastExample.LONG);
+    this._retrieveUserData();
   }
+
+  _retrieveUserData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('Persist');
+      if (value !== null) {
+        let isTrue = JSON.parse(value);
+        if (isTrue) {
+          console.log('values for user', isTrue.userData[0]);
+          this.setState({
+            user: isTrue.userData[0]
+          })
+        } else {
+          console.log('was not true', value);
+        } 
+      } else {
+
+        console.log('The key you searched for doesnt exist');
+      }
+     } catch (error) {
+       console.log("there was an error trying to find things in storage or something", error);
+     }
+  } 
+
 
   render() { 
     return (
@@ -30,7 +56,7 @@ export default class MoreScreen extends Component {
             </View>
             <TouchableOpacity style={{paddingLeft: 20, height: 100, justifyContent: 'center', flex: 1}} onPress={() => this.props.navigation.navigate("account")}>
               <Text>
-                <Text style={{fontSize: 20, fontWeight: '600', color: 'black'}}>Joseph Mulder</Text>{"\n"}
+                <Text style={{fontSize: 20, fontWeight: '600', color: 'black'}}>{this.state.user ? (this.state.user.FIRST_NAME + this.state.user.LAST_NAME) : "Loading.."}</Text>{"\n"}
                 <Text style={{fontSize: 14, fontWeight: '400'}}>View Account Details</Text>
               </Text>
             </TouchableOpacity>
