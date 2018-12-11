@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, Platform, Text, View, TouchableOpacity, Image, StatusBar, AsyncStorage } from 'react-native';
 import axios from 'axios';
+import DeviceInfo from 'react-native-device-info';
 
 export default class MainScreen extends Component {
   constructor(props) {
@@ -13,12 +14,33 @@ export default class MainScreen extends Component {
     this._retrieveData = this._retrieveData.bind(this);
     this.saveUserInfo = this.saveUserInfo.bind(this);
     this.saveUserInfo2 = this.saveUserInfo2.bind(this);
+    this.getDeviceInfo = this.getDeviceInfo.bind(this);
   }
 
   componentWillMount() {
     this._retrieveData();
-    
+    this.getDeviceInfo();
   }
+
+  getDeviceInfo(){
+    DeviceInfo.getMACAddress().then(mac => {
+      // this.setState({
+      //   wifiMac: mac
+      // });
+      axios.get('http://104.248.110.70:3000/deviceinfo', {params: {wifimac: mac}})
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+    })
+    .catch((error) => {
+      console.log(error);
+    }); 
+  }
+  
 
   _retrieveData = async () => {
     try {
