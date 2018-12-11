@@ -29,8 +29,8 @@ export default class KeyCardScreen extends Component {
       });
       // make it so that one function can handle all of the doors open 
       // and another function can handle all closing doors.
-      alert("Door is unlocked.");
-      this.interval = setInterval(() => this.closedDoor(), 5000);
+      alert("Front Door is unlocked.");
+      this.interval = setInterval(() => this.closedDoor(1), 5000);
     }
   }
 
@@ -41,17 +41,42 @@ export default class KeyCardScreen extends Component {
         value2: 1
       });
       alert("Package Room is unlocked.");
-      this.interval = setInterval(() => this.closedDoor(), 5000);
+      this.interval = setInterval(() => this.closedDoor(2), 5000);
     }
   }
 
-  closedDoor() {
+  closedDoor(door) {
     this.setState({
       change: 'Front Door',
       value: 0,
       value2: 0
     });
-  }
+    console.log("Door to close: "+  door );
+    switch(door) {
+      case 1:
+        alert("Close Front Door");
+        axios.get('http://172.85.43.18:18000/state.xml?relay1State=0&time=1544110432472')
+        .then((res) => {
+          // cooper s - receive whatever data you need hear then call unlockedDoor
+          clearInterval(this.interval);
+      })
+      .catch((err) => {
+        alert('error with relay server request: ', err );
+      }); 
+      break;
+      case 2:
+        alert("Close Package Room");
+        axios.get('http://172.85.43.18:18000/state.xml?relay2State=0&time=1544110432472')
+        .then((res) => {
+          // cooper s - receive whatever data you need hear then call unlockedDoor
+          clearInterval(this.interval);
+      })
+      .catch((err) => {
+        alert('error with relay server request: ', err );
+      });
+      break;
+    }//end switch
+  }//end closedDoor
 
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -69,9 +94,9 @@ export default class KeyCardScreen extends Component {
   }//end openLck
 
   getOpenPkgRm() {
-    alert("Gotta Go for Number 2...");
-    this.unlockedDoor2();
-    axios.get('http://172.85.43.18:18000/state.xml?relay1State=1&time=1544110432472')
+    console.log("Gotta Go for Number 2...");
+    //this.unlockedDoor2();
+    axios.get('http://172.85.43.18:18000/state.xml?relay2State=1&time=1544110432472')
       .then((res) => {
         // cooper s - receive whatever data you need hear then call unlockedDoor
         this.unlockedDoor2();
