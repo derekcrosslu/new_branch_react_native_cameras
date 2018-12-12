@@ -37,7 +37,8 @@ export default class RNAgoraExample extends Component {
     componentDidMount() {
         // 当前版本号
         RtcEngine.getSdkVersion((version) => {
-            // console.log(version)
+            console.log(version)
+            console.log('hola derek!!')
         });
 
         //加入房间

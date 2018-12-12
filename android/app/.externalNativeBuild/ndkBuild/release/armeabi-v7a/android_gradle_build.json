@@ -1,29 +1,29 @@
 {
   "buildFiles": [
-    "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk",
-    "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk"
+    "/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Android.mk",
+    "/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Application.mk"
   ],
   "cleanCommands": [
-    "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/lib clean"
+    "/Users/donald/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/lib clean"
   ],
   "libraries": {
     "hdaec-release-armeabi-v7a": {
-      "buildCommand": "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/lib /Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj/local/armeabi-v7a/libhdaec.so",
+      "buildCommand": "/Users/donald/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003d/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/lib /Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj/local/armeabi-v7a/libhdaec.so",
       "toolchain": "toolchain-armeabi-v7a",
       "abi": "armeabi-v7a",
       "artifactName": "hdaec",
       "files": [
         {
-          "src": "/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni/adt_hdaec_jni.c",
-          "flags": "-target armv7-none-linux-androideabi21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -gcc-toolchain /Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 -fpic -march\u003darmv7-a -mfloat-abi\u003dsoftfp -mfpu\u003dvfpv3-d16 -mthumb -Oz -DNDEBUG -I/Projects/Marcel/App/ResidentAppRN/android/app/src/main/jni -DANDROID -g -D__arm -DANDROID -DAECG4 -DAEC_PROFILE_DESKPHONE_ALL -Wa,--noexecstack -Wformat -Werror\u003dformat-security --sysroot /Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/sysroot -isystem /Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/sysroot/usr/include/arm-linux-androideabi"
+          "src": "/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/adt_hdaec_jni.c",
+          "flags": "-target armv7-none-linux-androideabi21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -gcc-toolchain /Users/donald/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 -fpic -march\u003darmv7-a -mfloat-abi\u003dsoftfp -mfpu\u003dvfpv3-d16 -mthumb -Oz -DNDEBUG -I/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni -DANDROID -g -D__arm -DANDROID -DAECG4 -DAEC_PROFILE_DESKPHONE_ALL -Wa,--noexecstack -Wformat -Werror\u003dformat-security --sysroot /Users/donald/Library/Android/sdk/ndk-bundle/sysroot -isystem /Users/donald/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi"
         }
       ],
-      "output": "/Projects/Marcel/App/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj/local/armeabi-v7a/libhdaec.so"
+      "output": "/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/release/obj/local/armeabi-v7a/libhdaec.so"
     }
   },
   "toolchains": {
     "toolchain-armeabi-v7a": {
-      "cCompilerExecutable": "/Users/altaf/Library/Developer/Xamarin/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
+      "cCompilerExecutable": "/Users/donald/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
     }
   },
   "cFileExtensions": [

@@ -1,14 +1,14 @@
-Executable : /Users/cooper09/Library/Android/sdk/ndk-bundle/ndk-build
+Executable : /Users/donald/Library/Android/sdk/ndk-bundle/ndk-build
 arguments : 
 NDK_PROJECT_PATH=null
-APP_BUILD_SCRIPT=/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Android.mk
-NDK_APPLICATION_MK=/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/src/main/jni/Application.mk
+APP_BUILD_SCRIPT=/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Android.mk
+NDK_APPLICATION_MK=/Users/donald/lab/flow/ResidentAppRN/android/app/src/main/jni/Application.mk
 APP_ABI=armeabi-v7a
 NDK_ALL_ABIS=armeabi-v7a
 NDK_DEBUG=1
 APP_PLATFORM=android-21
-NDK_OUT=/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj
-NDK_LIBS_OUT=/Users/cooper09/Documents/MAMP/htdocs/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/lib
+NDK_OUT=/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/obj
+NDK_LIBS_OUT=/Users/donald/lab/flow/ResidentAppRN/android/app/build/intermediates/ndkBuild/debug/lib
 APP_SHORT_COMMANDS=false
 LOCAL_SHORT_COMMANDS=false
 -B
